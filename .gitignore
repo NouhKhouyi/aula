@@ -1,0 +1,46 @@
+# ─────────────────────────────────────────────────────────────
+# aula — what never belongs in git
+#
+# This repository IS your vault. Once you start studying, it fills
+# up with your own lessons and your own source material. None of
+# that should ever be committed — not to your fork, not upstream.
+# ─────────────────────────────────────────────────────────────
+
+# The teaching system itself. Installed by scripts/setup, never vendored:
+# it is a separate upstream repository with its own license.
+.pi/
+
+# Your lessons. Private by default.
+Lessons/*
+!Lessons/.gitkeep
+
+# Your source material. Copyrighted textbooks live here — keep them out.
+Material/*
+!Material/.gitkeep
+!Material/README.md
+
+# Generated diagrams.
+viz/*
+!viz/.gitkeep
+
+# Obsidian per-machine state (open panes, window geometry, absolute paths).
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/plugins/
+.obsidian/themes/
+.obsidian/snippets/
+
+# Agent runtime state.
+.memory/
+.claude/
+*.session.json
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Dependencies / env
+node_modules/
+.env
+.env.*

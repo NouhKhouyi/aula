@@ -1,0 +1,16 @@
+blank_issues_enabled: true
+contact_links:
+  - name: The teaching philosophy itself
+    url: https://github.com/amosblomqvist/learn
+    about: >-
+      probe → plan → teach, the dependency map and the quiz rules come from
+      upstream. Ideas about HOW it teaches belong there, where they help
+      everyone.
+  - name: The pi agent
+    url: https://github.com/earendil-works/pi
+    about: Problems with pi itself, its extensions or its installation.
+  - name: Read the guide first
+    url: https://github.com/NouhKhouyi/aula/blob/main/docs/guide.md
+    about: >-
+      Install, first launch, the session flow and the known footguns are all
+      documented there.

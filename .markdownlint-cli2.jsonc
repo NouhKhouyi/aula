@@ -1,0 +1,42 @@
+{
+  // Prose-heavy repo. We care about structural correctness, not typographic
+  // rules that fight with Obsidian callouts and hand-wrapped paragraphs.
+  "config": {
+    "default": true,
+
+    // Hand-wrapped at 80, but tables, code blocks and long URLs are exempt.
+    "MD013": {
+      "line_length": 80,
+      "tables": false,
+      "code_blocks": false,
+      "headings": false,
+      "strict": false,
+      "stern": false
+    },
+
+    // The README leads with an HTML <h1> for centring; docs start with an h1.
+    "MD041": false,
+
+    // Inline HTML is used deliberately (centred header, badges).
+    "MD033": false,
+
+    // Obsidian callouts are blockquotes with bracketed markers; several
+    // blockquote rules misfire on them.
+    "MD028": false,
+
+    // Duplicate headings are fine across different sections of long docs.
+    "MD024": { "siblings_only": true },
+
+    // Bare URLs appear inside code fences only; emphasis-as-heading is used
+    // intentionally in a few places.
+    "MD036": false,
+
+    // Trailing punctuation in headings (e.g. "Phase 1 — Probe") is fine.
+    "MD026": false,
+
+    // Delimiter-row pipe spacing. Compact tables are deliberate and readable.
+    "MD060": false
+  },
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules/**", ".pi/**", "Lessons/**", "Material/**"]
+}

@@ -1,0 +1,79 @@
+name: Session report — where the teaching broke down
+description: >-
+  The most useful report this project can get. Tell me what went sideways in a
+  real study session.
+title: "[session] "
+labels: ["session-report", "pedagogy"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is not a bug report about you. A session that went badly is data
+        about the instruction layer, and it is the single hardest kind of
+        feedback to get. Thank you for filing it.
+
+        Please don't paste your whole lesson log — excerpts are plenty, and
+        they're your notes.
+
+  - type: input
+    id: topic
+    attributes:
+      label: What were you studying?
+      placeholder: "Conditional probability / Rust ownership / Roman contract law"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Which agent?
+      options:
+        - pi
+        - Claude Code
+        - Codex
+        - Cursor
+        - Other (say which below)
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: Which model?
+      placeholder: "e.g. Claude Opus 5, GPT-5.1"
+
+  - type: dropdown
+    id: phase
+    attributes:
+      label: Where did it go wrong?
+      options:
+        - "Phase 1 — the probe never converged / felt pointless"
+        - "Phase 1 — quizzes were badly built (guessable from shape)"
+        - "Phase 2 — a root was clearly not an unconditional truth"
+        - "Phase 2 — wrong scope, or it skipped the checkpoint"
+        - "Phase 3 — it drifted into summarising instead of building nodes"
+        - "Phase 3 — quiz-checks were skipped"
+        - "Accuracy — it stated something false"
+        - "The log / Obsidian side"
+        - "Something else"
+    validations:
+      required: true
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: >-
+        What you expected the system to do, and what it did instead. A short
+        excerpt of the log is ideal.
+    validations:
+      required: true
+
+  - type: textarea
+    id: guess
+    attributes:
+      label: Any guess at why?
+      description: >-
+        Optional, and worth saying even if you're unsure. An instruction that
+        was ambiguous, a case AGENTS.md doesn't cover, a subject the pedagogy
+        fits badly.

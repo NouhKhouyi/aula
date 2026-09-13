@@ -1,0 +1,10 @@
+{
+  "attachmentFolderPath": "viz",
+  "newFileLocation": "folder",
+  "newFileFolderPath": "Lessons",
+  "useMarkdownLinks": false,
+  "readableLineLength": true,
+  "strictLineBreaks": false,
+  "showLineNumber": false,
+  "alwaysUpdateLinks": true
+}

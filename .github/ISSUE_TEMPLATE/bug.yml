@@ -1,0 +1,51 @@
+name: Bug — setup, vault or tooling
+description: Something in the repo itself is broken.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For "the teaching went badly", use the **Session report** template
+        instead — that's a different kind of problem and gets handled
+        differently.
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What you did, what you expected, what you got.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Clone the repo
+        2. Run .\scripts\setup.ps1
+        3. ...
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS
+      placeholder: "Windows 11 / macOS 15 / Ubuntu 24.04 / WSL2"
+    validations:
+      required: true
+
+  - type: input
+    id: agent
+    attributes:
+      label: Agent and version
+      placeholder: "pi 0.85.0 / Claude Code 2.x"
+
+  - type: textarea
+    id: output
+    attributes:
+      label: Relevant output
+      description: Error messages or terminal output. Automatically formatted as code.
+      render: shell

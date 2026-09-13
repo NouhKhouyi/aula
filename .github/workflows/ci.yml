@@ -1,0 +1,81 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  markdown:
+    name: Lint markdown
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: markdownlint
+        run: npx --yes markdownlint-cli2 "**/*.md" "#node_modules"
+
+  links:
+    name: Check links
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: lychee
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --no-progress --config .lychee.toml .
+          fail: true
+
+  shell:
+    name: Lint shell scripts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: shellcheck
+        run: shellcheck scripts/*.sh
+
+  powershell:
+    name: Lint PowerShell
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Install-Module PSScriptAnalyzer -Force -Scope CurrentUser -ErrorAction Stop
+          $issues = Invoke-ScriptAnalyzer -Path scripts -Recurse `
+            -Settings ./PSScriptAnalyzerSettings.psd1
+          if ($issues) { $issues | Format-Table -AutoSize; exit 1 }
+          Write-Output 'No issues.'
+
+  hygiene:
+    name: No personal content committed
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lessons/, Material/ and viz/ must stay empty
+        run: |
+          set -euo pipefail
+          bad=$(git ls-files 'Lessons/*' 'viz/*' \
+                | grep -v '/\.gitkeep$' || true)
+          bad="$bad$(git ls-files 'Material/*' \
+                | grep -Ev '/(\.gitkeep|README\.md)$' || true)"
+          if [ -n "$bad" ]; then
+            echo "These files must not be committed:"
+            echo "$bad"
+            exit 1
+          fi
+          echo "Clean."
+      - name: .pi/ must never be vendored
+        run: |
+          if git ls-files --error-unmatch .pi >/dev/null 2>&1; then
+            echo ".pi/ is an upstream clone and must not be committed."
+            exit 1
+          fi
+          echo "Clean."

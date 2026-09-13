@@ -1,0 +1,46 @@
+name: Agent support
+description: Add or fix support for a terminal agent.
+title: "[agent] "
+labels: ["agent-support", "help wanted"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The contribution I'd most like to receive. See
+        [docs/agents.md](../blob/main/docs/agents.md#adding-support-for-an-agent).
+
+  - type: input
+    id: agent
+    attributes:
+      label: Which agent?
+      placeholder: "Gemini CLI / Aider / Cline / Zed"
+    validations:
+      required: true
+
+  - type: input
+    id: instructions_file
+    attributes:
+      label: What file does it read for project instructions?
+      placeholder: "AGENTS.md / GEMINI.md / .cursorrules / none"
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: capabilities
+    attributes:
+      label: What does it have?
+      options:
+        - label: Reads a project-instructions file automatically
+        - label: Can read and write files in the project
+        - label: Web search (needed for the accuracy rule)
+        - label: Subagents
+        - label: Interactive popups / structured prompts
+        - label: A session-mirroring command
+
+  - type: textarea
+    id: tried
+    attributes:
+      label: Did you try it?
+      description: >-
+        If you ran a real session with AGENTS.md in place — what worked, and
+        where did it fall apart? This is the part that matters most.

@@ -1,0 +1,20 @@
+# Link checker configuration.
+# https://lychee.cli.rs/usage/config/
+
+max_retries = 2
+timeout = 20
+max_concurrency = 8
+
+# Placeholders in docs and templates, not real links.
+exclude = [
+  "^https://github.com/<you>",
+  "^https://github.com/NouhKhouyi/aula$",
+]
+
+# These rate-limit or block CI user agents.
+exclude_path = [".pi", "Lessons", "Material", "node_modules"]
+
+# YouTube and some CDNs return 403 to headless checkers.
+accept = ["200", "202", "204", "206", "403", "429"]
+
+no_progress = true
