@@ -68,7 +68,6 @@ everything else — and a wrong root corrupts every node built on top of it.
 
 > [!NOTE]
 > The pedagogy is not mine. It comes from
-> [`amosblomqvist/learn`](https://github.com/amosblomqvist/learn)
 > ([video](https://www.youtube.com/watch?v=kzcI5F4tGiU)), which encodes it as a
 > skill for the `pi` agent. `aula` is the vault, the Obsidian bridge, the
 > cross-agent adaptation layer and the documentation around it. See
