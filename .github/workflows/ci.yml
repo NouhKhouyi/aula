@@ -14,8 +14,8 @@ jobs:
     name: Lint markdown
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
         with:
           node-version: '22'
       - name: markdownlint
@@ -25,7 +25,7 @@ jobs:
     name: Check links
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: lychee
         uses: lycheeverse/lychee-action@v2
         with:
@@ -36,7 +36,7 @@ jobs:
     name: Lint shell scripts
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: shellcheck
         run: shellcheck scripts/*.sh
 
@@ -44,7 +44,7 @@ jobs:
     name: Lint PowerShell
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: PSScriptAnalyzer
         shell: pwsh
         run: |
@@ -58,7 +58,7 @@ jobs:
     name: No personal content committed
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Lessons/, Material/ and viz/ must stay empty
         run: |
           set -euo pipefail
