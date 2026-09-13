@@ -5,14 +5,6 @@
   and the lesson renders, live, as you read it.</b>
 </p>
 
-<p align="center">
-  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/license-MIT-blue.svg"></a>
-  <img alt="Agent agnostic" src="https://img.shields.io/badge/agents-pi%20%7C%20Claude%20Code%20%7C%20Codex-8A63D2">
-  <img alt="Platforms" src="https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-lightgrey">
-  <img alt="Obsidian" src="https://img.shields.io/badge/Obsidian-vault-7C3AED?logo=obsidian&logoColor=white">
-  <a href="CONTRIBUTING.md"><img alt="PRs welcome" src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"></a>
-</p>
-
 ---
 
 ## The problem
