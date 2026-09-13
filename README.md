@@ -203,11 +203,6 @@ that last one is the most valuable and the least likely to be filed. See
 
 ## Credits
 
-- **[amosblomqvist/learn](https://github.com/amosblomqvist/learn)** — the
-  teaching system itself: the `teach` and `visualize` skills and the `quiz`,
-  `ask-user-question` and `md-log` extensions. `aula` installs it as an upstream
-  clone and never vendors it. It carries no license, so all rights are reserved
-  by its author; treat it accordingly.
 - **[earendil-works/pi](https://github.com/earendil-works/pi)** — the agent the
   reference path runs on.
 - **[Obsidian](https://obsidian.md)** — which renders LaTeX and Mermaid with no
