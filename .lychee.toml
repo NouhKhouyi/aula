@@ -21,7 +21,8 @@ exclude = [
 ]
 
 # These rate-limit or block CI user agents.
-exclude_path = [".pi", "Lessons", "Material", "node_modules", ".next", ".aula", "src", "tests"]
+# site/ is checked as assembled in _site/, where its assets live.
+exclude_path = [".pi", "Lessons", "Material", "node_modules", ".next", ".aula", "src", "tests", "site"]
 
 # YouTube and some CDNs return 403 to headless checkers.
 accept = ["200", "202", "204", "206", "403", "429"]

@@ -51,6 +51,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - name: Assemble the website, so its asset links can be checked
+        run: node scripts/build-site.mjs
       - name: lychee
         uses: lycheeverse/lychee-action@v2
         with:
