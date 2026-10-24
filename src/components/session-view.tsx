@@ -390,7 +390,7 @@ export function SessionView({ id }: { id: string }) {
                 {index === approvedAt && (
                   <div className="my-10 flex items-center gap-3 font-sans text-xs text-faint" role="separator">
                     <span className="h-px flex-1 bg-rule" />
-                    Teaching · {plan?.nodes.length ?? 0} steps to the goal
+                    {plan ? `Teaching · ${plan.nodes.length} steps to the goal` : "Teaching"}
                     <span className="h-px flex-1 bg-rule" />
                   </div>
                 )}

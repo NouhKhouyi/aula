@@ -39,7 +39,7 @@ const PLAN = {
 const TEACH: Step[] = [
   () => [
     text(
-      "**Demo mode.** No model is connected, so I will run one scripted mini-lesson to show you how aula works: why the derivative of $x^2$ is $2x$. Connect a provider in **Settings** to study anything you like.\n\nFirst, the goal.",
+      "This is aula's demo lesson: a short scripted session on why the derivative of $x^2$ is $2x$. Connect a model in **Settings** to learn anything you like.\n\nBefore I teach anything, I want to know where you're headed.",
     ),
     call("ask", { question: "What would you like to be able to do once this lesson is over?" }),
   ],
@@ -107,7 +107,7 @@ const TEACH: Step[] = [
 const PRACTICE: Step[] = [
   () => [
     text(
-      "**Demo mode.** A scripted practice round. Connect a provider in **Settings** for real practice drawn from your graph.",
+      "This is aula's demo practice round. Connect a model in **Settings** for practice drawn from your own knowledge graph.",
     ),
     call("pose_problem", {
       statement: "A ball's height is $h(t) = t^2$ metres after $t$ seconds. How fast is it rising at exactly $t = 4$?",
