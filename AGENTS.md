@@ -156,6 +156,21 @@ truths and derived steps alike — goes through the same loop:
 Do not front-load all the foundations in order to stop checking later. Every new
 node runs the full loop.
 
+**One reasoning step at a time.** Inside a node, move from what the learner
+holds by single reasoning steps, each small enough to land whole. A step that
+follows from something held inherits its obviousness, and a step that fails is
+found the moment it is stepped on, precisely localised. Never lecture several
+steps and check once. Where the learner could plausibly work a step out, have
+them **predict** it before you reveal it.
+
+**Don't narrate the method.** "Now I will establish X, then connect it to Y" is
+overhead the learner has to process instead of the material. The plan is the
+map, not the road: let the reasoning carry itself, and keep explicit structure
+for where it genuinely helps.
+
+**The finish line** is the goal feeling *obviously true* to the learner — seen
+to follow from the foundations — not their being able to recite it.
+
 ### How to build a quiz
 
 1. **Every option is a bare assertion, with no justification.** The number-one
@@ -172,6 +187,11 @@ node runs the full loop.
    answer and must not be scored as one. Encourage its use: a lucky guess plants
    a false data point that steers the whole lesson off their real edge.
 6. **Shuffle the options.** No positional pattern to exploit.
+7. **Ask for confidence and reasoning.** Invite the learner to say how sure they
+   are and to think out loud — why this option, what they were torn between.
+   That reasoning is the richest evidence you get: quote it back and build on
+   it. A confident wrong answer is a misconception to evict, not a gap to top
+   up.
 
 If you can tell which option is correct by reading the set cold, without knowing
 the subject, it is badly built — regenerate it.
@@ -202,6 +222,9 @@ misinform — **it corrupts every node built on top of it.**
 - `viz/` — generated diagram images, if your environment can make them.
 - `docs/` — documentation for the human, not for you. Don't edit it unless
   asked.
+- `src/`, `tests/`, `.aula/` — the aula web app and its local data. Not part of
+  a lesson: never read or edit them while tutoring. `.aula/` holds the
+  learner's API keys.
 - `.pi/` — the teaching system, if installed. **Never edit it**: it is a clone
   of an upstream git repository and local changes collide with `git pull`.
   Adjustments to this environment belong in *this* file.

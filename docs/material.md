@@ -4,6 +4,12 @@
 lecture notes, transcripts, a textbook converted to text. The tutor reads it
 before planning.
 
+- **In the app**, text files in `Material/` (`.md`, `.txt`, `.csv`, `.tex`)
+  appear under **Use your material** on the home page. Attach the ones that
+  matter to a session. Very large files are truncated, so prefer the chapters
+  in scope over a whole book.
+- **With a terminal agent**, point at the files in your message, as below.
+
 > [!important]
 > `Material/` is **git-ignored**. Your textbooks stay on your machine. Don't
 > remove that ignore rule, and don't commit copyrighted PDFs to a fork of this

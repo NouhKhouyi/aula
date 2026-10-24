@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="150" viewBox="0 0 640 150">
+  <g transform="translate(176 35) scale(3.4)">
+    <path d="M7 18 L12 7 M17 18 L12 7" stroke="#6f7586" stroke-width="1.4" fill="none"/>
+    <rect x="2.5" y="16" width="9" height="5" rx="1.6" fill="#4fc1b5"/>
+    <rect x="12.5" y="16" width="9" height="5" rx="1.6" fill="#4fc1b5"/>
+    <rect x="7" y="3" width="10" height="6" rx="1.8" fill="#a88bff"/>
+  </g>
+  <text x="276" y="103" font-family="Newsreader, Georgia, 'Times New Roman', serif" font-size="78" font-weight="600" letter-spacing="-1.5" fill="#e6e8ef">aula</text>
+</svg>
