@@ -35,8 +35,11 @@ Everything you learn accumulates in a **knowledge graph** that the next session
 reads, and every lesson can be saved as a note in your **Obsidian vault**, with
 real typeset math and drawn diagrams.
 
-![A lesson in aula: the learner's quiz answer, and the plan on the right with
-foundations at the bottom and the goal at the top](docs/assets/lesson.png)
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/lesson-dark.png">
+  <img src="docs/assets/lesson.png" alt="A lesson in aula: the learner's
+    question, the teacher's reply and a quiz, with the plan on the right">
+</picture>
 
 ## How it works
 
@@ -65,13 +68,13 @@ unsure of on the web before saying it, and shows you what it checked.
 
 <table>
   <tr>
-    <td width="50%"><img src="docs/assets/plan.png" alt="Answered quizzes with
-      confidence and thinking, in the light theme"></td>
+    <td width="50%"><img src="docs/assets/practice.png" alt="A practice
+      problem with the learner's attempt and the coach's response"></td>
     <td width="50%"><img src="docs/assets/graph.png" alt="The knowledge graph:
       propositions linked by the reasoning steps between them"></td>
   </tr>
   <tr>
-    <td>Quizzes record your pick, your confidence and your reasoning.</td>
+    <td>Practice responds to your reasoning, not just your answer.</td>
     <td>The knowledge graph carries what you learned across sessions.</td>
   </tr>
 </table>
@@ -153,6 +156,7 @@ aula/
 npm run dev          # http://localhost:3000, with hot reload
 npm test             # deterministic: no LLM, no network
 npm run check        # lint, typecheck, formatting and tests
+AULA_DATA_DIR=/tmp/aula-showcase npm run showcase   # sample data to explore
 ```
 
 See the [development guide](docs/development.md) and the

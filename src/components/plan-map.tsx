@@ -71,8 +71,8 @@ function layout(nodes: PlanNode[], edges: PlanEdge[], width: number): { placed: 
 }
 
 const STATUS_CLASS: Record<NodeStatus | "plain", string> = {
-  done: "border-accent bg-accent text-accent-ink",
-  current: "border-accent bg-accent-soft text-ink ring-4 ring-accent/25",
+  done: "border-accent/60 bg-accent-soft text-ink",
+  current: "border-accent bg-accent text-accent-ink ring-4 ring-accent/20",
   next: "border-ink/70 bg-surface text-ink",
   upcoming: "border-dashed border-faint bg-surface text-muted",
   plain: "border-rule bg-surface text-ink",
@@ -150,7 +150,9 @@ export function PlanMap({ nodes, edges, goal, progress, live = false }: Props) {
             className={clsx(
               "absolute flex items-center justify-center rounded-lg border px-2 text-center font-sans text-[12.5px] leading-tight transition-colors",
               STATUS_CLASS[status ?? "plain"],
-              node.id === goal && "font-semibold outline-2 outline-offset-2 outline-accent/60",
+              node.id === goal && "border-solid font-semibold",
+              node.id === goal && !status && "border-accent",
+              node.id === goal && (status === "next" || status === "upcoming") && "border-accent/70 text-ink",
             )}
             style={{ left: x, top: y, width: w, height: NODE_H }}
           >
@@ -177,10 +179,10 @@ export function PlanLegend({ live }: { live?: boolean }) {
       {live && (
         <>
           <span className="inline-flex items-center gap-1.5">
-            <span className="size-2.5 rounded-sm bg-accent" /> landed
+            <span className="size-2.5 rounded-sm border border-accent/60 bg-accent-soft" /> landed
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <span className="size-2.5 rounded-sm border border-accent bg-accent-soft" /> now
+            <span className="size-2.5 rounded-sm bg-accent" /> now
           </span>
         </>
       )}

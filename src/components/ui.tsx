@@ -97,22 +97,26 @@ export function InstrumentCard({
   children: React.ReactNode;
   className?: string;
 }) {
-  const spine = {
-    accent: "border-l-accent",
-    correct: "border-l-correct",
-    miss: "border-l-miss",
-    unsure: "border-l-unsure",
-    muted: "border-l-rule",
+  const dot = {
+    accent: "bg-accent",
+    correct: "bg-correct",
+    miss: "bg-miss",
+    unsure: "bg-unsure",
+    muted: "bg-faint",
+  }[tone];
+  const ink = {
+    accent: "text-ink",
+    correct: "text-correct",
+    miss: "text-miss",
+    unsure: "text-unsure",
+    muted: "text-muted",
   }[tone];
   return (
-    <section
-      className={clsx(
-        "rounded-lg border border-l-4 border-rule bg-surface p-4 shadow-[0_1px_0_var(--rule)] sm:p-5",
-        spine,
-        className,
-      )}
-    >
-      <h3 className="mb-3 font-sans text-[13px] font-medium text-muted">{label}</h3>
+    <section className={clsx("rounded-xl border border-rule bg-surface p-4 sm:p-5", className)}>
+      <h3 className={clsx("mb-3 flex items-center gap-2 font-sans text-[13px] font-medium", ink)}>
+        <span aria-hidden className={clsx("size-1.5 rounded-full", dot)} />
+        {label}
+      </h3>
       {children}
     </section>
   );

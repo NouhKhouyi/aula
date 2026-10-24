@@ -3,7 +3,7 @@ name: Website
 on:
   push:
     branches: [main]
-    paths: [site/**, docs/assets/**, .github/workflows/pages.yml]
+    paths: [site/**, docs/assets/**, scripts/build-site.mjs, .github/workflows/pages.yml]
   workflow_dispatch:
 
 permissions:
@@ -23,11 +23,11 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
       - name: Assemble the site
-        run: |
-          mkdir -p _site/assets
-          cp site/index.html _site/
-          cp docs/assets/*.png docs/assets/icon.svg _site/assets/
+        run: node scripts/build-site.mjs
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:

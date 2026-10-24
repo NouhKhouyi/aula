@@ -104,12 +104,13 @@ export function QuizCard({
                   onClick={() => setChoice(i)}
                   aria-pressed={picked}
                   className={clsx(
-                    "flex w-full items-start gap-3 rounded-md border px-3 py-2.5 text-left transition-colors",
+                    "flex w-full items-start gap-3 rounded-md border px-3 text-left transition-colors",
+                    answer ? "py-1.5" : "py-2.5",
                     !answer && picked && "border-accent bg-accent-soft",
                     !answer && !picked && "border-rule hover:border-faint",
                     answer && isCorrect && "border-correct bg-correct-soft",
                     answer && picked && !isCorrect && "border-miss bg-miss-soft",
-                    answer && !picked && !isCorrect && "border-rule opacity-70",
+                    answer && !picked && !isCorrect && "border-transparent opacity-55",
                   )}
                 >
                   <span className="mt-[3px] w-4 shrink-0 font-sans text-xs tabular-nums text-faint">{i + 1}</span>
@@ -135,7 +136,7 @@ export function QuizCard({
                 (answer ? answer.dontKnow : choice === DONT_KNOW)
                   ? "border-unsure bg-unsure-soft text-ink"
                   : "border-rule text-muted hover:border-faint",
-                answer && !answer.dontKnow && "opacity-60",
+                answer && !answer.dontKnow && "hidden",
               )}
             >
               I don&apos;t know

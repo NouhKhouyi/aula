@@ -104,8 +104,8 @@ The approved plan moves to the side panel and stays there, live:
 
 | Mark | Meaning |
 |---|---|
-| Filled violet | Landed |
-| Ringed | Being taught now |
+| Filled violet, ringed | Being taught now |
+| Pale violet | Landed |
 | Solid outline | Ready: everything it depends on has landed |
 | Dashed | Later |
 

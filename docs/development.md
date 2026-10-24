@@ -18,6 +18,15 @@ your real record:
 AULA_DATA_DIR=/tmp/aula-dev npm run dev
 ```
 
+To review the interface with realistic content — a lesson in progress, a
+practice round and a populated knowledge graph — write the sample record into
+an empty folder and point the app at it:
+
+```bash
+AULA_DATA_DIR=/tmp/aula-showcase npm run showcase
+AULA_DATA_DIR=/tmp/aula-showcase npm run dev
+```
+
 ## Scripts
 
 | Script | Does |
@@ -29,6 +38,7 @@ AULA_DATA_DIR=/tmp/aula-dev npm run dev
 | `npm run typecheck` | Generates route types, then `tsc --noEmit`. |
 | `npm run format` | Prettier. `format:check` verifies without writing. |
 | `npm run check` | Everything CI runs, except the build. |
+| `npm run showcase` | Writes sample sessions and a graph into `AULA_DATA_DIR`. |
 
 ## Tests
 

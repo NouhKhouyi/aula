@@ -57,3 +57,6 @@ next-env.d.ts
 
 # Crash dumps from Git Bash on Windows
 *.stackdump
+
+# Assembled landing page (npm run site:build)
+/_site/

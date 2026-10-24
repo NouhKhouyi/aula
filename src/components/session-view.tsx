@@ -433,8 +433,9 @@ export function SessionView({ id }: { id: string }) {
           <div className="sticky top-20 flex max-h-[calc(100vh-6rem)] flex-col gap-5 overflow-y-auto pb-8 pt-8">
             {panel}
             <p className="font-sans text-xs text-faint">
-              {session.model} · {(session.usage.inputTokens / 1000).toFixed(1)}k in ·{" "}
-              {(session.usage.outputTokens / 1000).toFixed(1)}k out
+              {session.provider === "mock"
+                ? "Demo mode"
+                : `${session.model}, ${(session.usage.inputTokens / 1000).toFixed(1)}k tokens in and ${(session.usage.outputTokens / 1000).toFixed(1)}k out`}
             </p>
           </div>
         </aside>

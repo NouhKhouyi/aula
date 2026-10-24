@@ -9,3 +9,4 @@ Material/
 .github/ISSUE_TEMPLATE/
 *.jsonc
 *.yml
+_site/
