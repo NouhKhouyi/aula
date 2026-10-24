@@ -1,5 +1,10 @@
 # CLAUDE.md
 
+> **Working on aula's code rather than studying?** Ignore the tutoring rules
+> below and read [`docs/development.md`](docs/development.md) and
+> [`docs/architecture.md`](docs/architecture.md) instead. Run `npm run check`
+> before committing.
+
 This project's instructions live in **[`AGENTS.md`](AGENTS.md)**. Read that file
 in full before doing anything — it defines the pedagogy you must follow, how to
 handle the learner's source material, and how to write the lesson log.

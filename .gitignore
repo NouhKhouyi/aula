@@ -40,7 +40,23 @@ viz/*
 Thumbs.db
 desktop.ini
 
+# The app's local record: sessions, knowledge graph, settings and API keys.
+.aula/
+
 # Dependencies / env
 node_modules/
 .env
 .env.*
+
+# Next.js / build output
+/.next/
+/out/
+/coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# Crash dumps from Git Bash on Windows
+*.stackdump
+
+# Assembled landing page (npm run site:build)
+/_site/

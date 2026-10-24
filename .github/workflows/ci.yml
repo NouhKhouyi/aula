@@ -9,7 +9,32 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
+  app:
+    name: App — lint, typecheck, test, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: '22'
+          cache: npm
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Typecheck
+        run: npm run typecheck
+      - name: Formatting
+        run: npm run format:check
+      - name: Tests
+        run: npm test
+      - name: Build
+        run: npm run build
+
   markdown:
     name: Lint markdown
     runs-on: ubuntu-latest
@@ -19,13 +44,15 @@ jobs:
         with:
           node-version: '22'
       - name: markdownlint
-        run: npx --yes markdownlint-cli2 "**/*.md" "#node_modules"
+        run: npx --yes markdownlint-cli2 "**/*.md" "#node_modules" "#.next"
 
   links:
     name: Check links
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+      - name: Assemble the website, so its asset links can be checked
+        run: node scripts/build-site.mjs
       - name: lychee
         uses: lycheeverse/lychee-action@v2
         with:
@@ -69,6 +96,13 @@ jobs:
           if [ -n "$bad" ]; then
             echo "These files must not be committed:"
             echo "$bad"
+            exit 1
+          fi
+          echo "Clean."
+      - name: .aula/ (sessions and API keys) must never be committed
+        run: |
+          if [ -n "$(git ls-files .aula)" ]; then
+            echo ".aula/ holds personal data and keys and must not be committed."
             exit 1
           fi
           echo "Clean."

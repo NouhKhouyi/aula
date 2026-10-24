@@ -17,6 +17,35 @@ long topic, and it comes down to three things a chat window doesn't give you:
 If your agent can read files and you want the pedagogy without the vault, take
 [`AGENTS.md`](../AGENTS.md) alone. That is a legitimate way to use this repo.
 
+## Should I use the app or a terminal agent?
+
+The app, unless you live in a terminal. It gives every provider the full set of
+instruments — graded quizzes with confidence and a thinking field, a plan you
+approve from a card, the live plan map, practice sessions and the knowledge
+graph — and still saves lessons to your vault. The terminal workflow
+(`AGENTS.md`) is there for people who would rather study inside Claude Code,
+Codex or pi, and it shares the same pedagogy.
+
+## Which model should I use?
+
+The most capable one you can. Planning — searching for the shortest route from
+what you know to your goal — is where lessons are won or lost, and it is exactly
+what weak models do badly. With Claude, the default is Claude Opus 5.5 at high
+effort.
+
+## What does a session cost?
+
+Whatever your provider charges for the tokens; aula adds nothing. The session
+panel shows the running token count. A substantial topic is a long session, and
+web verification adds searches. Use demo mode to explore the app for free.
+
+## Can I use a local model?
+
+Yes, through any OpenAI-compatible server such as Ollama or LM Studio. Choose
+**OpenAI-compatible** in Settings, pick the local endpoint, and enter a model id
+that supports tool calling. Expect weaker planning than a frontier model, and no
+web verification.
+
 ## Do I have to install `pi`?
 
 No. `pi` is the reference path and gives you the graded-quiz popups and
@@ -91,8 +120,10 @@ exactly the step a weak model does badly.
 
 ## Is my study data sent anywhere?
 
-Only to whichever model provider you configured, like any agent session. `aula`
-itself has no telemetry, no server and no network access of its own. `Lessons/`
+Only to whichever model provider you configured. aula has no telemetry and no
+account; the app's server runs on your own machine and only talks to your
+provider (and, through Claude, to web search when the teacher verifies a fact).
+Sessions, the graph and your keys stay in `.aula/`, and `.aula/`, `Lessons/`
 and `Material/` are git-ignored, so nothing is published by accident.
 
 ## Can I contribute the pedagogy back upstream?

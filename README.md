@@ -1,214 +1,191 @@
-<h1 align="center">aula</h1>
-
 <p align="center">
-  <b>An Obsidian vault where a terminal AI agent teaches you —<br>
-  and the lesson renders, live, as you read it.</b>
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/banner-dark.svg">
+    <source media="(prefers-color-scheme: light)" srcset="docs/assets/banner-light.svg">
+    <img src="docs/assets/banner-light.svg" alt="aula" width="420">
+  </picture>
 </p>
 
----
+<p align="center"><strong>An agent harness for learning. Local-first, open source,
+bring your own model.</strong></p>
 
-## The problem
+<p align="center">
+  <a href="#quick-start">Quick start</a> ·
+  <a href="#how-it-works">How it works</a> ·
+  <a href="docs/app.md">Using the app</a> ·
+  <a href="docs/architecture.md">Architecture</a> ·
+  <a href="https://github.com/NouhKhouyi/aula/issues">Issues</a>
+</p>
 
-Terminal coding agents turn out to be extraordinary tutors. They hold a whole
-textbook in context, they never get bored of your third follow-up question, and
-they can be told *how* to teach.
+<p align="center">
+  <a href="https://github.com/NouhKhouyi/aula/actions/workflows/ci.yml"><img
+    src="https://github.com/NouhKhouyi/aula/actions/workflows/ci.yml/badge.svg"
+    alt="CI"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-6d3fe0"
+    alt="MIT license"></a>
+</p>
 
-And then they print an integral as `\int_0^1 f(x) dx` into a scrolling terminal
-buffer, and the lesson you needed to *read slowly* is gone the moment you resize
-the window.
+aula uses an AI teacher to take you from what you understand now to what you
+want to understand — one reasoning step at a time. It does not start by
+explaining. It starts by finding out where your understanding ends, plans the
+shortest route from there to your goal, and checks every step lands before it
+builds on it.
 
-The terminal is a fine place to *talk* to a tutor. It is a terrible place to
-*learn* from one.
+Everything you learn accumulates in a **knowledge graph** that the next session
+reads, and every lesson can be saved as a note in your **Obsidian vault**, with
+real typeset math and drawn diagrams.
 
-## The idea
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/lesson-dark.png">
+  <img src="docs/assets/lesson.png" alt="A lesson in aula: the learner's
+    question, the teacher's reply and a quiz, with the plan on the right">
+</picture>
 
-Don't render in the terminal. **Mirror the session into a markdown file and read
-it in Obsidian**, where LaTeX and Mermaid render natively, with no plugins.
+## How it works
 
-You type in the terminal. You read on the other half of the screen, typeset.
+1. **Probe.** Before teaching anything, the teacher finds the edge of your
+   understanding on each strand the goal depends on — bounded on both sides:
+   something you get right, and something you don't. It also makes your goal
+   concrete. Missing questions is the point, and *I don't know* is always a
+   good answer.
+2. **Plan.** It searches for the minimal route from what you hold to your goal
+   and shows it as a dependency map: unconditional truths at the bottom, your
+   goal at the top. You approve it, or send it back.
+3. **Teach.** One reasoning step at a time. You predict, it explains, it
+   checks. A step that didn't land is repaired before anything is built on it.
+   The aim is for the goal to feel *obviously true*, not merely familiar.
+4. **Practise.** Separate sessions pose problems that never name the idea they
+   need, so knowledge has to come to mind on its own. Hints respond to your
+   actual reasoning.
 
-```mermaid
-flowchart LR
-    A["You<br/>(terminal)"] <--> B["AI agent<br/>+ teaching rules"]
-    B -- "mirrors verbatim" --> C["Lessons/Topic.md"]
-    C -- "renders LaTeX,<br/>Mermaid, callouts" --> D["Obsidian<br/>(you read here)"]
-    E["Material/<br/>notes, syllabus, books"] --> B
-    B -- "verifies claims" --> F(("web search"))
-```
+**Think out loud.** Every question has a field for your reasoning and a
+confidence slider. That is how the teacher sees *why* you answered, not just
+whether you were right — a confident wrong answer is a misconception to evict,
+not a gap to top up.
 
-`aula` is the vault that makes this work: the folder layout, the agent
-instructions, the safety rules that stop a mirrored log from eating your notes,
-and a guide explaining the pedagogy you are signing up for.
+**Accuracy is non-negotiable.** With Claude, the teacher verifies anything it is
+unsure of on the web before saying it, and shows you what it checked.
 
-## What makes it different from "just ask ChatGPT"
-
-The agent is not asked to *explain a topic*. It is asked to follow a process.
-
-| Phase | What happens | Why |
-|---|---|---|
-| **1 · Probe** | It quizzes you until it finds the **edge** of what you know — bounded from *both* sides: something at that level you get right, and something you get wrong. | You cannot teach into a zone of proximal development without knowing where its borders are. Getting everything right is not a pass; it means the questions were too easy. |
-| **2 · Plan** | It sweeps the topic, then shows you a **dependency graph** with unconditional truths at the roots and your goal as the destination — **and stops for your approval.** | That map *is* the teaching order. A misplaced root is cheap to fix now and expensive to fix mid-lesson. |
-| **3 · Teach** | It builds the graph **node by node**: motivate → establish → connect → quiz-check. A node that fails its check is repaired before anything is built on top of it. | Facts land when they are safe to commit to. Nothing is front-loaded and left unverified. |
-
-Two principles run underneath all of it:
-
-- **Unconditional truths first.** Start from statements you can accept at face
-  value, with no caveats. Not because bottom-up is logically tidy, but because
-  safe statements are the *easiest* to commit to, and they give you the first
-  firm ground.
-- **"How could I have discovered this myself?"** Every step is motivated — why
-  this formula, why manipulate the equation *this* way. Facts feel arbitrary
-  when you can see no reason they *had* to be that way, and brains don't commit
-  to arbitrary information. The declared reference is 3Blue1Brown.
-
-And one non-negotiable rule: **the moment the agent doubts a fact, a name, a
-date, a formula or a definition, it stops and verifies it on the web before
-saying it.** A single confidently-stated hallucination poisons your trust in
-everything else — and a wrong root corrupts every node built on top of it.
-
-> [!NOTE]
-> The pedagogy is not mine. It comes from
-> ([video](https://www.youtube.com/watch?v=kzcI5F4tGiU)), which encodes it as a
-> skill for the `pi` agent. `aula` is the vault, the Obsidian bridge, the
-> cross-agent adaptation layer and the documentation around it. See
-> [Credits](#credits).
-
-## What it looks like
-
-The agent writes Obsidian callouts, so the log reads as a class, not as a
-transcript. Tool calls are omitted entirely.
-
-````markdown
-> [!abstract] TUTOR
-> Every probability we will ever write down is a number assigned to a **set**.
-> That is unconditionally true, and worth pinning before anything else:
-> $$P : \mathcal{F} \to [0,1]$$
-
-> [!question] Quiz
-> Two dice are rolled. Which statement is true of the sample space?
-> 1. It has 36 elements, equally likely only if the dice are fair
-> 2. It has 12 elements, one per possible sum
-> 3. It has 11 elements, one per achievable sum
-> 4. I don't know
-
-> [!failure] Quiz — incorrect ✗
-> Correct answer: **1**
-> The sample space lists *outcomes*, not *values of a function of the outcome*.
-> The sum is a random variable defined on top of it.
-````
-
-Rendered in Obsidian those become coloured boxes, real typeset math and — for
-the Phase 2 plan — an actually drawn graph. See
-[`docs/example-lesson.md`](docs/example-lesson.md) for a full worked session.
+<table>
+  <tr>
+    <td width="50%"><img src="docs/assets/practice.png" alt="A practice
+      problem with the learner's attempt and the coach's response"></td>
+    <td width="50%"><img src="docs/assets/graph.png" alt="The knowledge graph:
+      propositions linked by the reasoning steps between them"></td>
+  </tr>
+  <tr>
+    <td>Practice responds to your reasoning, not just your answer.</td>
+    <td>The knowledge graph carries what you learned across sessions.</td>
+  </tr>
+</table>
 
 ## Quick start
 
-**Prerequisites:** [Obsidian](https://obsidian.md) · a supported agent (below) ·
-`git`
+You need [Node.js](https://nodejs.org) 20.9 or newer.
 
 ```bash
 git clone https://github.com/NouhKhouyi/aula
 cd aula
+npm install
+npm run build && npm start      # or: npm run dev
 ```
 
-Then install the teaching system and pick your agent:
+Open <http://localhost:3000>. Then, in **Settings**, either:
 
-```powershell
-# Windows (PowerShell)
-.\scripts\setup.ps1
-```
+- add an **Anthropic API key** — the recommended path, with web verification;
+- point it at any **OpenAI-compatible** endpoint (OpenAI, OpenRouter, DeepSeek,
+  a local Ollama or LM Studio); or
+- choose **Demo** to walk through a scripted lesson with no key at all.
 
-```bash
-# macOS / Linux
-./scripts/setup.sh
-```
+Ask it something you want to understand, and answer honestly.
 
-Finally, in Obsidian: **Open folder as vault** → pick the `aula` folder.
+## Knowledge that carries forward
 
-The full walkthrough — first launch, authentication, the exact session flow and
-the failure modes worth knowing — is in **[`docs/guide.md`](docs/guide.md)**.
+After a session, choose **Add to knowledge graph**. The session is read for the
+propositions it established and the reasoning steps that connect them, each
+linked back to where it came up and to how well you held it at the time.
 
-## Supported agents
+The next session on a related topic starts with the relevant part of the graph
+in front of the teacher, so it can probe precisely instead of starting from
+scratch. The graph stores ideas and their connections — evidence, not grades.
 
-`aula` ships its instructions in [`AGENTS.md`](AGENTS.md), the cross-agent
-convention, so most terminal agents pick them up with no configuration. What
-differs is how much of the interactive machinery survives.
+## Your vault, your keys, your data
 
-| Agent | Graded quizzes | Auto-mirrored log | Notes |
-|---|:---:|:---:|---|
-| **[pi](https://github.com/earendil-works/pi)** | ✅ native popup | ✅ `/md-log` | Reference path. Everything works. |
-| **Claude Code** | ➖ in-chat | ✍️ agent-written | Quizzes render as callouts in the note; you answer in chat. |
-| **Codex / Cursor / others** | ➖ in-chat | ✍️ agent-written | Anything that reads `AGENTS.md`. |
+- **Local storage.** Sessions, the graph, settings and keys live in `.aula/`, as
+  plain JSON you can read, back up and diff. Nothing is sent anywhere except to
+  the model provider you configure.
+- **Your keys.** You pay your provider directly. Keys stay on the server side of
+  the app and are never sent to the browser. The session panel shows token use.
+- **Obsidian-native.** **Save to Obsidian vault** writes the lesson into
+  `Lessons/` (or any folder you choose) as callouts with LaTeX and Mermaid —
+  the same format the terminal workflow uses.
+- **Inspectable.** The teacher's whole method is a readable prompt in
+  [`src/lib/core/prompts.ts`](src/lib/core/prompts.ts). Change how it teaches by
+  editing prose.
 
-The degradation is deliberate and documented per agent in
-[`docs/agents.md`](docs/agents.md). The pedagogy is the valuable part, and it is
-plain prose that any capable model can follow.
+## Prefer a terminal agent?
+
+aula started as an Obsidian vault for terminal agents, and that still works.
+[`AGENTS.md`](AGENTS.md) carries the full pedagogy for Claude Code, Codex,
+Cursor, [pi](https://github.com/earendil-works/pi) and anything else that reads
+it: the agent teaches in the terminal and writes the lesson into `Lessons/` for
+you to read in Obsidian. See [the terminal guide](docs/guide.md) and
+[agents](docs/agents.md).
 
 ## Repository layout
 
 ```text
 aula/
-├── AGENTS.md              # the instructions every agent reads. The core of this repo.
-├── Lessons/               # one mirrored log per topic  (git-ignored: yours)
-├── Material/              # your syllabus, notes, converted PDFs  (git-ignored: yours)
-├── Templates/Lesson.md    # a correctly-empty lesson note
-├── viz/                   # generated diagrams  (git-ignored)
-├── docs/                  # the guide, the pedagogy, per-agent notes, FAQ
-├── scripts/               # setup for Windows / macOS / Linux
-└── .obsidian/             # a sane vault config, committed
+├── src/
+│   ├── app/              # Next.js pages and API routes
+│   ├── components/       # the interface: lesson, quiz, plan map, graph
+│   └── lib/
+│       ├── core/         # pure logic: tools, prompts, plan, quiz, graph, export
+│       ├── server/       # agent loop, providers, file store
+│       └── client/       # browser-side API helpers
+├── tests/                # vitest — no network, no API key
+├── AGENTS.md             # the pedagogy, for terminal agents
+├── Lessons/  Material/   # your vault (git-ignored)
+├── docs/                 # guides and design notes
+└── scripts/              # vault setup for the terminal workflow
 ```
 
-> [!IMPORTANT]
-> `Lessons/`, `Material/` and `viz/` are **git-ignored on purpose**. This
-> repository *is* your vault: the moment you start studying, it fills with your
-> own notes and your own copyrighted textbooks. Keep them local. If you fork
-> `aula` to customise it, this is what stops you from publishing your lecture
-> notes — and someone else's PDF — by accident.
+## Development
 
-## The rules that will save you
+```bash
+npm run dev          # http://localhost:3000, with hot reload
+npm test             # deterministic: no LLM, no network
+npm run check        # lint, typecheck, formatting and tests
+AULA_DATA_DIR=/tmp/aula-showcase npm run showcase   # sample data to explore
+```
 
-Learned the hard way; enforced by `AGENTS.md` and repeated in the guide.
-
-1. **Link the log *before* you say anything to the agent.** Mirroring does a
-   *backfill*: linking a file mid-session overwrites it whole with the session
-   history. Link first, when there is no history, and nothing can be lost.
-2. **Never edit a note while it is linked.** Every append rewrites the file.
-   Put your own words in `Lessons/<Topic> - my notes.md` and wikilink it — and
-   do write them, because rephrasing what you just understood is the best proof
-   it landed connected instead of memorised.
-3. **Use "I don't know."** It is a distinct signal, not a wrong answer. A lucky
-   guess plants a false data point and steers the whole lesson off your real
-   edge.
-4. **Actually read the Phase 2 plan.** It is your checkpoint. Say so if a root
-   does not look obviously true to you.
+See the [development guide](docs/development.md) and the
+[architecture](docs/architecture.md). Contributions are welcome — especially
+reports of where the teaching broke down for you. See
+[CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Documentation
 
 | | |
 |---|---|
-| [**The guide**](docs/guide.md) | Everything: install, first launch, session flow, the pedagogy in depth, command reference. Start here. |
-| [**Your half of the system**](docs/pedagogy.md) | What *you* have to do, the four ways learners break it, and how to read a quiz. |
-| [**Agents**](docs/agents.md) | Per-agent capabilities, and how to add support for a new one. |
-| [**Windows & WSL2**](docs/windows.md) | Running without tmux or subagents, and the full-fidelity WSL2 route. |
-| [**Working with material**](docs/material.md) | Feeding it your syllabus, your notes and your PDFs. |
-| [**Example lesson**](docs/example-lesson.md) | What a rendered session actually looks like. |
-| [**FAQ**](docs/faq.md) | Including "why not just a ChatGPT prompt?" |
-
-## Contributing
-
-Especially welcome: **support for another agent**, **translations of the
-teaching layer**, and **reports of where the pedagogy broke down for you** —
-that last one is the most valuable and the least likely to be filed. See
-[CONTRIBUTING.md](CONTRIBUTING.md).
+| [**Using the app**](docs/app.md) | Sessions, quizzes, plans, practice, the graph, export. |
+| [**Your half of the system**](docs/pedagogy.md) | What you have to do for any of this to work. |
+| [**Architecture**](docs/architecture.md) | The agent loop, providers, tools and data model. |
+| [**Data format**](docs/data-format.md) | What is in `.aula/`, file by file. |
+| [**Development**](docs/development.md) | Running, testing, adding a provider or a tool. |
+| [**Terminal guide**](docs/guide.md) | The vault workflow with pi, Claude Code or Codex. |
+| [**FAQ**](docs/faq.md) | Including "why not just ask ChatGPT?" |
 
 ## Credits
 
-- **[earendil-works/pi](https://github.com/earendil-works/pi)** — the agent the
-  reference path runs on.
-- **[Obsidian](https://obsidian.md)** — which renders LaTeX and Mermaid with no
-  plugins, and is the reason any of this works.
+The teaching method — probe, plan, teach; unconditional truths first; "how could
+I have discovered this myself?" — comes from Amos Blomqvist's
+[`learn`](https://github.com/amosblomqvist/learn), and the app's shape is
+inspired by his [LearnHarness](https://github.com/amosblomqvist/learnharness).
+aula is an independent implementation; no code is shared. Lessons render in
+[Obsidian](https://obsidian.md), math with [KaTeX](https://katex.org) and
+diagrams with [Mermaid](https://mermaid.js.org).
 
 ## License
 
-[MIT](LICENSE) — the vault, the adaptation layer and the documentation.
-Upstream components keep their own terms.
+[MIT](LICENSE).

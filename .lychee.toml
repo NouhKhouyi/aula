@@ -9,10 +9,20 @@ max_concurrency = 8
 exclude = [
   "^https://github.com/<you>",
   "^https://github.com/NouhKhouyi/aula$",
+  # Local app URLs in the docs.
+  "^https?://localhost",
+  # Release links that exist only once a version is tagged.
+  "^https://github.com/NouhKhouyi/aula/(compare|releases)/",
+  # Badges and the CI status page render fine but rate-limit checkers.
+  "^https://img.shields.io/",
+  "^https://github.com/NouhKhouyi/aula/actions/",
+  # Requires a login.
+  "^https://console.anthropic.com",
 ]
 
 # These rate-limit or block CI user agents.
-exclude_path = [".pi", "Lessons", "Material", "node_modules"]
+# site/ is checked as assembled in _site/, where its assets live.
+exclude_path = [".pi", "Lessons", "Material", "node_modules", ".next", ".aula", "src", "tests", "site"]
 
 # YouTube and some CDNs return 403 to headless checkers.
 accept = ["200", "202", "204", "206", "403", "429"]

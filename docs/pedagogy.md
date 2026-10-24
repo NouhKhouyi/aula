@@ -21,7 +21,7 @@ That is the whole contract. The rest of this page is consequences of it.
 
 ---
 
-## Four ways learners break it
+## Five ways learners break it
 
 ### 1. Guessing instead of saying "I don't know"
 
@@ -73,6 +73,14 @@ the lesson log itself — that file gets rewritten and your words will vanish.
 
 If you can't do it, you have found a node that didn't land. Go back and say so.
 That is the single highest-value message you can send in a session.
+
+### 5. Hiding your reasoning
+
+Every quiz has a confidence slider and a field to think out loud. Skipping them
+leaves the teacher with right-or-wrong and nothing else. "I picked 3 because the
+other two felt too easy" turns a wrong answer from a data point into a
+diagnosis, and a confident miss is the clearest sign of a misconception worth
+evicting. Thirty seconds of typing buys a much better lesson.
 
 ---
 

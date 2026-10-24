@@ -5,6 +5,46 @@ Format loosely follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [Unreleased]
 
+## [0.2.0] — 2026-10-24
+
+aula becomes an app. The vault and the terminal workflow keep working exactly
+as before; the app adds a full teaching harness on top of the same pedagogy.
+
+### Added
+
+- **A local-first web app** (Next.js). Start a lesson or a practice session
+  from one question; sessions are saved as you go and resume where you left.
+- **A teaching agent with real instruments**: graded quizzes for probing,
+  predicting and checking, with shuffled options, *I don't know*, a confidence
+  slider and a field to think out loud; open questions; a plan you approve or
+  send back; and practice problems that never name the idea they need.
+- **The method, updated**: one reasoning step at a time, predictions before
+  explanations, every step checked before anything is built on it, and the goal
+  feeling obviously true as the finish line.
+- **A live plan map**: foundations at the bottom, the goal on top, every node
+  marked landed, current, ready or later.
+- **A knowledge graph** that carries across sessions: propositions, the
+  reasoning steps between them, and provenance back to each session with how
+  well you held it. New sessions read the relevant part of it.
+- **Course material**: attach text files from `Material/` to a session to set
+  its scope and notation.
+- **Providers**: Claude through the official Anthropic SDK (adaptive thinking,
+  effort, web verification, refusal fallbacks, prompt caching), any
+  OpenAI-compatible endpoint including local models, and a keyless demo mode.
+- **Obsidian export** in the same callout format as the terminal workflow,
+  plus a plain Markdown download.
+- **Light and dark themes**, LaTeX and Mermaid rendering, keyboard answers, a
+  mobile layout.
+- **A test suite** (Vitest) that drives complete lessons through the real agent
+  loop with no network, and checks the Claude request on the wire.
+- **CI** for the app: lint, typecheck, formatting, tests and a production build.
+- Docs: using the app, architecture, data format, development.
+
+### Changed
+
+- The README, FAQ, contributing guide and pedagogy page cover the app; the
+  former guide is now the terminal guide.
+
 ## [0.1.0] — 2026-09-13
 
 First public release.
@@ -42,5 +82,6 @@ First public release.
   repository carries no license, so `aula` clones it at setup time and never
   redistributes it.
 
-[Unreleased]: https://github.com/NouhKhouyi/aula/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/NouhKhouyi/aula/compare/v0.2.0...HEAD
+[0.2.0]: https://github.com/NouhKhouyi/aula/compare/v0.1.0...v0.2.0
 [0.1.0]: https://github.com/NouhKhouyi/aula/releases/tag/v0.1.0

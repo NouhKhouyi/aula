@@ -5,22 +5,18 @@ genuinely welcome — especially the unglamorous ones.
 
 ## What this project is (and isn't)
 
-`aula` is **the vault, the cross-agent instruction layer and the documentation**.
+`aula` is two things that share one pedagogy:
+
+- **The app** (`src/`) — a local-first web app that runs the teacher against
+  the model you choose, with graded quizzes, plans, practice and a knowledge
+  graph.
+- **The vault and instruction layer** (`AGENTS.md`, `Lessons/`, `scripts/`) —
+  for studying with a terminal agent and reading lessons in Obsidian.
 
 The **pedagogy** — probe → plan → teach, the dependency map, the quiz
 construction rules — originates in
-[`amosblomqvist/learn`](https://github.com/amosblomqvist/learn). `AGENTS.md`
-restates it so that agents other than `pi` can follow it, but improvements to
-*how it teaches* are best raised upstream, where they help everyone.
-
-So, roughly:
-
-| Belongs here | Belongs upstream |
-|---|---|
-| Support for another agent | Changes to the teaching philosophy |
-| Vault layout, Obsidian config, templates | The `quiz` / `md-log` extensions |
-| Setup scripts, platform fixes | The `teach` and `visualize` skills |
-| Docs, translations, examples | Subagent definitions |
+[`amosblomqvist/learn`](https://github.com/amosblomqvist/learn). Ideas about the
+philosophy itself are worth raising there too, where they help everyone.
 
 ## What I'd most like
 
@@ -43,7 +39,12 @@ you caught it.
 `teaching_language` setting, but a localised `AGENTS.<lang>.md` with idiomatic
 phrasing works better than a config flag. Spanish, in particular, I can review.
 
-**4. Platform fixes.** Especially anything that makes the full subagent /
+**4. Code.** Bugs, accessibility, another provider, better rendering, faster
+graph layout. Start from the [development guide](docs/development.md) and the
+[architecture](docs/architecture.md). For anything large, open an issue first so
+we can agree on the shape.
+
+**5. Platform fixes.** Especially anything that makes the full subagent /
 rendered-diagram pipeline work somewhere it currently doesn't.
 
 ## Ground rules
@@ -53,12 +54,13 @@ rendered-diagram pipeline work somewhere it currently doesn't.
   textbooks. If a PR touches them, it will be closed.
 - **Never vendor `.pi/`.** Upstream carries no license; it is cloned, never
   redistributed.
-- **Prose is the product.** `AGENTS.md` is the most important file in this repo
-  and it is entirely prose. Edits to it get read closely. Wrap at 80 columns,
-  match the existing register, and be concrete — vague instructions produce
-  vague teaching.
-- **Test by studying.** If you change the instruction layer, run one real
-  session against it before opening the PR, and say in the description what you
+- **Never commit `.aula/`.** It holds sessions and API keys.
+- **Prose is the product.** The teacher's method lives in prose:
+  `src/lib/core/prompts.ts` for the app and `AGENTS.md` for terminal agents.
+  Edits to either get read closely. Keep the two in step, match the existing
+  register, and be concrete — vague instructions produce vague teaching.
+- **Test by studying.** If you change how it teaches, run one real session
+  against it before opening the PR, and say in the description what you
   studied and what changed.
 
 ## Practical
@@ -66,18 +68,23 @@ rendered-diagram pipeline work somewhere it currently doesn't.
 ```bash
 git clone https://github.com/<you>/aula
 cd aula
-./scripts/setup.sh --skip-teaching-system
+npm install
+npm run dev
 ```
 
-There is no build and no test suite. CI checks markdown formatting and that
-links resolve:
+Before opening a pull request:
 
 ```bash
-npx markdownlint-cli2 "**/*.md"
-npx lychee --no-progress .
+npm run check                     # lint, typecheck, formatting, tests
+npm run build
+npx markdownlint-cli2 "**/*.md"   # if you touched docs
 ```
 
-Commits: plain, imperative, one concern each. No convention enforced.
+Tests are deterministic and need no API key; demo mode drives the real agent
+loop. Add a test with any behaviour change.
+
+Commits follow [Conventional Commits](https://www.conventionalcommits.org)
+(`feat:`, `fix:`, `docs:`, `test:`, `chore:`), one concern each.
 
 ## Code of conduct
 

@@ -1,7 +1,14 @@
-# The aula guide
+# The terminal guide
 
-Everything you need to run this system. This note lives inside the vault, so
+Everything you need to run aula **with a terminal agent** — pi, Claude Code,
+Codex — writing lessons into this vault. This note lives inside the vault, so
 you can read it from Obsidian.
+
+> [!NOTE]
+> Most people should start with the app instead: `npm install && npm run dev`,
+> then see [Using the app](app.md). It has graded quizzes, confidence and
+> thinking fields, the live plan map and the knowledge graph on every provider.
+> This guide is for working entirely from a terminal.
 
 **Contents**
 

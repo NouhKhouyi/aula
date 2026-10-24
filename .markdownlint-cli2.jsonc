@@ -38,5 +38,5 @@
     "MD060": false
   },
   "globs": ["**/*.md"],
-  "ignores": ["node_modules/**", ".pi/**", "Lessons/**", "Material/**"]
+  "ignores": ["node_modules/**", ".next/**", ".aula/**", ".pi/**", "Lessons/**", "Material/**"]
 }
