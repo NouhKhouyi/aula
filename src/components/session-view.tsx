@@ -294,6 +294,19 @@ export function SessionView({ id }: { id: string }) {
         </section>
       )}
 
+      {session.material && session.material.length > 0 && (
+        <section className="border-t border-rule pt-4 font-sans text-sm">
+          <h2 className="font-medium">Your material</h2>
+          <ul className="mt-1.5 space-y-0.5 text-muted">
+            {session.material.map((m) => (
+              <li key={m} className="truncate">
+                {m}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       <section className="flex flex-col items-start gap-0.5 border-t border-rule pt-4">
         <Button variant="quiet" onClick={exportToVault} className="px-2">
           <BookDown size={15} /> Save to Obsidian vault

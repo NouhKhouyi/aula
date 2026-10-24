@@ -1,6 +1,7 @@
 import { z } from "zod";
 import { runTurn, type AgentEvent } from "@/lib/server/agent";
 import { errorMessage, forClient, handle, jsonError, learnerResponseSchema, parseBody } from "@/lib/server/http";
+import { readMaterial } from "@/lib/server/material";
 import { providerFor } from "@/lib/server/providers";
 import { getGraph, getSession, getSettings, saveSession, withLock } from "@/lib/server/store";
 
@@ -42,12 +43,17 @@ export function POST(request: Request, ctx: RouteContext<"/api/sessions/[id]/tur
           const session = await getSession(id);
           if (!session) throw new Error("Session not found.");
           const settings = await getSettings();
-          const [provider, graph] = await Promise.all([providerFor(settings), getGraph()]);
+          const [provider, graph, material] = await Promise.all([
+            providerFor(settings),
+            getGraph(),
+            readMaterial(session.material ?? []),
+          ]);
           try {
             await runTurn(session, input, {
               provider,
               settings,
               graph,
+              material,
               signal: request.signal,
               persist: saveSession,
               emit: (event) =>

@@ -188,6 +188,8 @@ export interface Session {
   extractedAt?: string;
   /** Path of the Obsidian note this session was last exported to. */
   exportedTo?: string;
+  /** Files from the vault's Material/ folder the learner attached. */
+  material?: string[];
 }
 
 export type SessionSummary = Pick<Session, "id" | "title" | "kind" | "createdAt" | "updatedAt" | "phase" | "model"> & {

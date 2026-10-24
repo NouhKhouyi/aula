@@ -39,6 +39,8 @@ export interface TurnDeps {
   provider: Provider;
   settings: Settings;
   graph: Graph;
+  /** Contents of the session's attached material, read by the caller. */
+  material?: { name: string; text: string }[];
   emit: (event: AgentEvent) => void;
   persist: (session: Session) => Promise<void>;
   signal?: AbortSignal;
@@ -112,6 +114,7 @@ export async function runTurn(session: Session, input: TurnInput, deps: TurnDeps
   const system = teacherSystemPrompt(session.kind, deps.settings, {
     webSearch: deps.provider.canSearch,
     context: relevantPropositions(deps.graph, contextQuery(session)),
+    material: deps.material,
   });
   const tools = toolsFor(session.kind);
 

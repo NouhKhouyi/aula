@@ -14,11 +14,12 @@ export function GET() {
 const createSchema = z.object({
   kind: z.enum(["teach", "practice"]),
   topic: z.string().trim().min(1).max(20000),
+  material: z.array(z.string().max(500)).max(20).optional(),
 });
 
 export function POST(request: Request) {
   return handle(async () => {
-    const { kind, topic } = await parseBody(request, createSchema);
+    const { kind, topic, material } = await parseBody(request, createSchema);
     const settings = await getSettings();
     const now = new Date().toISOString();
     const session: Session = {
@@ -39,6 +40,7 @@ export function POST(request: Request) {
       progress: { done: [] },
       messages: [],
       usage: { inputTokens: 0, outputTokens: 0 },
+      ...(material?.length ? { material } : {}),
     };
     await saveSession(session);
     return Response.json({ id: session.id }, { status: 201 });

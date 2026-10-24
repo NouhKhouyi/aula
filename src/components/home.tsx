@@ -1,7 +1,7 @@
 "use client";
 
 import clsx from "clsx";
-import { ArrowUp } from "lucide-react";
+import { ArrowUp, FileText } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -53,8 +53,13 @@ export function Home() {
   const [settings, setSettings] = useState<PublicSettings | null>(null);
   const [starting, setStarting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [material, setMaterial] = useState<{ name: string; size: number }[]>([]);
+  const [attached, setAttached] = useState<string[]>([]);
 
   useEffect(() => {
+    api<{ name: string; size: number }[]>("/api/material")
+      .then(setMaterial)
+      .catch(() => undefined);
     api<SessionSummary[]>("/api/sessions")
       .then(setSessions)
       .catch(() => setSessions([]));
@@ -70,7 +75,7 @@ export function Home() {
     try {
       const { id } = await api<{ id: string }>("/api/sessions", {
         method: "POST",
-        body: JSON.stringify({ kind, topic: text.trim() }),
+        body: JSON.stringify({ kind, topic: text.trim(), material: attached }),
       });
       try {
         sessionStorage.setItem(START_KEY(id), text.trim());
@@ -168,6 +173,37 @@ export function Home() {
               </button>
             ))}
           </div>
+
+          {material.length > 0 && (
+            <fieldset className="mt-8 max-w-[46rem]">
+              <legend className="font-sans text-sm font-medium">Use your material</legend>
+              <p className="mt-0.5 font-sans text-xs text-muted">
+                From <code className="rounded bg-sunken px-1">Material/</code>. It sets the scope and notation — the
+                lesson still starts from what you know.
+              </p>
+              <div className="mt-3 flex flex-wrap gap-2 font-sans text-sm">
+                {material.map((m) => {
+                  const on = attached.includes(m.name);
+                  return (
+                    <button
+                      key={m.name}
+                      type="button"
+                      aria-pressed={on}
+                      onClick={() => setAttached(on ? attached.filter((n) => n !== m.name) : [...attached, m.name])}
+                      className={clsx(
+                        "inline-flex items-center gap-1.5 rounded-md border px-2.5 py-1",
+                        on ? "border-learner bg-learner-soft text-ink" : "border-rule text-muted hover:text-ink",
+                      )}
+                    >
+                      <FileText size={13} />
+                      {m.name}
+                      <span className="text-xs text-faint">{Math.max(1, Math.round(m.size / 1024))} KB</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </fieldset>
+          )}
 
           {error && (
             <p role="alert" className="mt-4 font-sans text-sm text-miss">
