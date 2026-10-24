@@ -38,6 +38,15 @@ export function QuizCard({
   const [thinking, setThinking] = useState("");
   const [collapsed, setCollapsed] = useState(!!startCollapsed && !answer);
   const ref = useRef<HTMLDivElement>(null);
+  const controls = useRef<HTMLDivElement>(null);
+
+  // Once an option is picked, bring the confidence, thinking and Answer
+  // controls into view: they can sit under the fixed message box.
+  useEffect(() => {
+    if (choice === null) return;
+    const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    controls.current?.scrollIntoView({ block: "nearest", behavior: reduce ? "auto" : "smooth" });
+  }, [choice]);
 
   // Number keys pick options, 0 or ? says "I don't know".
   useEffect(() => {
@@ -145,7 +154,7 @@ export function QuizCard({
         </ol>
 
         {!answer && active && (
-          <div className="mt-4 flex flex-col gap-3">
+          <div ref={controls} className="mt-4 flex scroll-mb-36 flex-col gap-3">
             {choice !== null && choice !== DONT_KNOW && <Confidence value={confidence} onChange={setConfidence} />}
             <Thinking value={thinking} onChange={setThinking} />
             <div className="flex items-center justify-between gap-3">

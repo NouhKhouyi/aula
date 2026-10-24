@@ -6,15 +6,12 @@
   </picture>
 </p>
 
-<p align="center"><strong>An agent harness for learning. Local-first, open source,
-bring your own model.</strong></p>
+<h3 align="center">Understand it until it feels obvious.</h3>
 
 <p align="center">
-  <a href="#quick-start">Quick start</a> ·
-  <a href="#how-it-works">How it works</a> ·
-  <a href="docs/app.md">Using the app</a> ·
-  <a href="docs/architecture.md">Architecture</a> ·
-  <a href="https://github.com/NouhKhouyi/aula/issues">Issues</a>
+  An AI teacher that finds out what you already know, plans the shortest route
+  to what you want to understand, and checks every step lands.<br>
+  Local-first · open source · bring your own model.
 </p>
 
 <p align="center">
@@ -23,63 +20,101 @@ bring your own model.</strong></p>
     alt="CI"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-6d3fe0"
     alt="MIT license"></a>
+  <a href="https://nouhkhouyi.github.io/aula/"><img
+    src="https://img.shields.io/badge/website-aula-0e7c74" alt="Website"></a>
 </p>
 
-aula uses an AI teacher to take you from what you understand now to what you
-want to understand — one reasoning step at a time. It does not start by
-explaining. It starts by finding out where your understanding ends, plans the
-shortest route from there to your goal, and checks every step lands before it
-builds on it.
+<p align="center">
+  <a href="#-try-it-in-a-minute"><b>Try it</b></a> ·
+  <a href="#-how-a-lesson-works"><b>How it works</b></a> ·
+  <a href="docs/app.md"><b>Guide</b></a> ·
+  <a href="https://nouhkhouyi.github.io/aula/"><b>Website</b></a>
+</p>
 
-Everything you learn accumulates in a **knowledge graph** that the next session
-reads, and every lesson can be saved as a note in your **Obsidian vault**, with
-real typeset math and drawn diagrams.
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="docs/assets/demo-dark.gif">
+    <img src="docs/assets/demo-light.gif" alt="A lesson in aula: the learner
+      asks a question, answers probing quizzes with confidence and reasoning,
+      approves the plan, and the plan map fills in as each step lands"
+      width="860">
+  </picture>
+  <br>
+  <sub>A real session in demo mode, sped up: ask, get probed, approve the plan,
+  learn step by step.</sub>
+</p>
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="docs/assets/lesson-dark.png">
-  <img src="docs/assets/lesson.png" alt="A lesson in aula: the learner's
-    question, the teacher's reply and a quiz, with the plan on the right">
-</picture>
+## 💡 Why aula?
 
-## How it works
+Ask a chatbot to explain something and you get an explanation written for
+nobody in particular. aula works the other way round.
 
-1. **Probe.** Before teaching anything, the teacher finds the edge of your
-   understanding on each strand the goal depends on — bounded on both sides:
-   something you get right, and something you don't. It also makes your goal
-   concrete. Missing questions is the point, and *I don't know* is always a
-   good answer.
-2. **Plan.** It searches for the minimal route from what you hold to your goal
-   and shows it as a dependency map: unconditional truths at the bottom, your
-   goal at the top. You approve it, or send it back.
-3. **Teach.** One reasoning step at a time. You predict, it explains, it
-   checks. A step that didn't land is repaired before anything is built on it.
-   The aim is for the goal to feel *obviously true*, not merely familiar.
-4. **Practise.** Separate sessions pose problems that never name the idea they
-   need, so knowledge has to come to mind on its own. Hints respond to your
-   actual reasoning.
+| | Asking a chatbot | aula |
+|---|---|---|
+| **Starts from** | The topic | **What you already know** — it probes first |
+| **Order** | Whatever the answer happens to be | **A plan you approve**: foundations first, your goal last |
+| **Pace** | One long answer | **One reasoning step at a time**, each one checked |
+| **Your mistakes** | Mostly invisible | **Found and repaired** before anything is built on them |
+| **Next week** | Starts from zero | **Remembers** — a knowledge graph across sessions |
+| **Your notes** | Lost in the chat | **Saved to Obsidian** with real math and diagrams |
 
-**Think out loud.** Every question has a field for your reasoning and a
-confidence slider. That is how the teacher sees *why* you answered, not just
-whether you were right — a confident wrong answer is a misconception to evict,
-not a gap to top up.
+## 🧭 How a lesson works
 
-**Accuracy is non-negotiable.** With Claude, the teacher verifies anything it is
-unsure of on the web before saying it, and shows you what it checked.
+```mermaid
+flowchart LR
+    Q(["You ask"]) --> P["🔍 Probe<br/>find where your<br/>understanding ends"]
+    P --> L["🗺️ Plan<br/>the shortest route,<br/>you approve it"]
+    L --> T["🧱 Teach<br/>predict → explain → check"]
+    T -- "a step didn't land" --> T
+    T --> G(["✨ It feels obvious"])
+    G -.-> R["🎯 Practise<br/>days later"]
+    G -.-> K[("🕸️ Knowledge graph")]
+    K -.-> P
+```
+
+1. **Probe.** A few questions that escalate until something breaks. Missing is
+   the point — that's how it finds your edge. *I don't know* is always a good
+   answer.
+2. **Plan.** A dependency map: things you can accept at face value at the
+   bottom, your goal at the top. Read the foundations; approve it or send it
+   back.
+3. **Teach.** One small step at a time. You predict, it explains, it checks.
+   If a step doesn't land, it gets fixed right there.
+4. **Practise.** Later, problems that never name the idea they need — so it
+   has to come to mind on its own.
+
+> [!TIP]
+> **Think out loud.** Every question has a confidence slider and a box for your
+> reasoning. A confident wrong answer tells the teacher far more than a lucky
+> right one.
+
+## 📸 A look around
 
 <table>
+  <tr>
+    <td colspan="2"><img src="docs/assets/home.png" alt="The home page: one
+      question to start a lesson or a practice session, and your sessions
+      underneath"></td>
+  </tr>
+  <tr>
+    <td colspan="2" align="center"><sub><b>Start here.</b> One question,
+      learn or practise.</sub></td>
+  </tr>
   <tr>
     <td width="50%"><img src="docs/assets/practice.png" alt="A practice
       problem with the learner's attempt and the coach's response"></td>
     <td width="50%"><img src="docs/assets/graph.png" alt="The knowledge graph:
-      propositions linked by the reasoning steps between them"></td>
+      ideas linked by the reasoning steps between them"></td>
   </tr>
   <tr>
-    <td>Practice responds to your reasoning, not just your answer.</td>
-    <td>The knowledge graph carries what you learned across sessions.</td>
+    <td align="center"><sub><b>Practice</b> responds to your reasoning, not
+      just your answer.</sub></td>
+    <td align="center"><sub><b>The knowledge graph</b> carries what you
+      learned across sessions.</sub></td>
   </tr>
 </table>
 
-## Quick start
+## 🚀 Try it in a minute
 
 You need [Node.js](https://nodejs.org) 20.9 or newer.
 
@@ -87,105 +122,124 @@ You need [Node.js](https://nodejs.org) 20.9 or newer.
 git clone https://github.com/NouhKhouyi/aula
 cd aula
 npm install
-npm run build && npm start      # or: npm run dev
+npm run dev
 ```
 
-Open <http://localhost:3000>. Then, in **Settings**, either:
+Open <http://localhost:3000>, go to **Settings**, and pick a teacher:
 
-- add an **Anthropic API key** — the recommended path, with web verification;
-- point it at any **OpenAI-compatible** endpoint (OpenAI, OpenRouter, DeepSeek,
-  a local Ollama or LM Studio); or
-- choose **Demo** to walk through a scripted lesson with no key at all.
+| Option | You need | Good for |
+|---|---|---|
+| 🎓 **Claude** *(recommended)* | An [Anthropic API key](https://console.anthropic.com) | The best lessons, with facts checked on the web |
+| 🔌 **OpenAI-compatible** | A key and a model id — or nothing, for a local model | OpenAI, OpenRouter, DeepSeek, Ollama, LM Studio |
+| 🧪 **Demo** | Nothing | Seeing the whole loop in two minutes, for free |
 
-Ask it something you want to understand, and answer honestly.
+Then ask it something you've always half-understood.
 
-## Knowledge that carries forward
+<details>
+<summary><b>Want to look around with realistic data first?</b></summary>
 
-After a session, choose **Add to knowledge graph**. The session is read for the
-propositions it established and the reasoning steps that connect them, each
-linked back to where it came up and to how well you held it at the time.
+```bash
+AULA_DATA_DIR=/tmp/aula-showcase npm run showcase
+AULA_DATA_DIR=/tmp/aula-showcase npm run dev
+```
 
-The next session on a related topic starts with the relevant part of the graph
-in front of the teacher, so it can probe precisely instead of starting from
-scratch. The graph stores ideas and their connections — evidence, not grades.
+That writes a lesson in progress, a practice round and a knowledge graph into
+a scratch folder, without touching your own record.
 
-## Your vault, your keys, your data
+</details>
 
-- **Local storage.** Sessions, the graph, settings and keys live in `.aula/`, as
-  plain JSON you can read, back up and diff. Nothing is sent anywhere except to
-  the model provider you configure.
-- **Your keys.** You pay your provider directly. Keys stay on the server side of
-  the app and are never sent to the browser. The session panel shows token use.
-- **Obsidian-native.** **Save to Obsidian vault** writes the lesson into
-  `Lessons/` (or any folder you choose) as callouts with LaTeX and Mermaid —
-  the same format the terminal workflow uses.
-- **Inspectable.** The teacher's whole method is a readable prompt in
-  [`src/lib/core/prompts.ts`](src/lib/core/prompts.ts). Change how it teaches by
-  editing prose.
+## ✨ What's inside
 
-## Prefer a terminal agent?
+- **🎯 Real quizzes** — shuffled options, *I don't know*, confidence and a
+  thinking box; they show you the reasoning after you answer.
+- **🗺️ A live plan map** — foundations at the bottom, the goal on top, the
+  current step highlighted as you go.
+- **🕸️ A knowledge graph** — every session adds what it established; new
+  lessons read it, so they don't start from scratch.
+- **📚 Your course material** — attach notes or a syllabus from `Material/` to
+  set the scope and notation.
+- **🔎 Fact-checking** — with Claude, the teacher verifies on the web anything
+  it's unsure of, and shows what it checked.
+- **📝 Obsidian export** — every lesson as a note with callouts, LaTeX and
+  Mermaid diagrams.
+- **🌗 Light and dark**, keyboard shortcuts, and it works on a phone.
+
+## 🔒 Yours, on your machine
+
+- **No account, no subscription, no telemetry.** You pay your model provider
+  directly; aula adds nothing.
+- **Plain files.** Sessions, the graph and settings live in `.aula/` as JSON
+  you can read, back up or delete. Keys never reach the browser.
+- **A method you can read.** How it teaches is plain prose in
+  [`src/lib/core/prompts.ts`](src/lib/core/prompts.ts). Change the prose,
+  change the teacher.
+
+<details>
+<summary><b>💻 Prefer studying in a terminal agent?</b></summary>
 
 aula started as an Obsidian vault for terminal agents, and that still works.
-[`AGENTS.md`](AGENTS.md) carries the full pedagogy for Claude Code, Codex,
-Cursor, [pi](https://github.com/earendil-works/pi) and anything else that reads
-it: the agent teaches in the terminal and writes the lesson into `Lessons/` for
-you to read in Obsidian. See [the terminal guide](docs/guide.md) and
-[agents](docs/agents.md).
+[`AGENTS.md`](AGENTS.md) carries the whole method for Claude Code, Codex,
+Cursor, [pi](https://github.com/earendil-works/pi) and anything else that
+reads it: the agent teaches in the terminal and writes the lesson into
+`Lessons/` for you to read in Obsidian. See [the terminal guide](docs/guide.md)
+and [agents](docs/agents.md).
 
-## Repository layout
+</details>
+
+<details>
+<summary><b>🛠️ For developers</b></summary>
+
+```bash
+npm run dev          # http://localhost:3000, with hot reload
+npm test             # deterministic: no model, no network, no key
+npm run check        # lint, typecheck, formatting and tests
+```
 
 ```text
 aula/
 ├── src/
-│   ├── app/              # Next.js pages and API routes
-│   ├── components/       # the interface: lesson, quiz, plan map, graph
+│   ├── app/              # pages and API routes (Next.js)
+│   ├── components/       # lesson, quiz cards, plan map, graph
 │   └── lib/
-│       ├── core/         # pure logic: tools, prompts, plan, quiz, graph, export
+│       ├── core/         # pure logic: tools, prompts, plan, quiz, graph
 │       ├── server/       # agent loop, providers, file store
-│       └── client/       # browser-side API helpers
-├── tests/                # vitest — no network, no API key
-├── AGENTS.md             # the pedagogy, for terminal agents
-├── Lessons/  Material/   # your vault (git-ignored)
-├── docs/                 # guides and design notes
-└── scripts/              # vault setup for the terminal workflow
+│       └── client/       # browser-side helpers
+├── tests/                # Vitest
+├── site/                 # the website
+├── AGENTS.md             # the method, for terminal agents
+└── docs/                 # guides and design notes
 ```
 
-## Development
+Read the [architecture](docs/architecture.md), the
+[data format](docs/data-format.md) and the
+[development guide](docs/development.md).
 
-```bash
-npm run dev          # http://localhost:3000, with hot reload
-npm test             # deterministic: no LLM, no network
-npm run check        # lint, typecheck, formatting and tests
-AULA_DATA_DIR=/tmp/aula-showcase npm run showcase   # sample data to explore
-```
+</details>
 
-See the [development guide](docs/development.md) and the
-[architecture](docs/architecture.md). Contributions are welcome — especially
-reports of where the teaching broke down for you. See
-[CONTRIBUTING.md](CONTRIBUTING.md).
-
-## Documentation
+## 📖 Docs
 
 | | |
 |---|---|
 | [**Using the app**](docs/app.md) | Sessions, quizzes, plans, practice, the graph, export. |
-| [**Your half of the system**](docs/pedagogy.md) | What you have to do for any of this to work. |
+| [**Your half of the system**](docs/pedagogy.md) | What you have to do for any of this to work. Short. |
+| [**FAQ**](docs/faq.md) | Which model? What does it cost? Local models? |
 | [**Architecture**](docs/architecture.md) | The agent loop, providers, tools and data model. |
-| [**Data format**](docs/data-format.md) | What is in `.aula/`, file by file. |
-| [**Development**](docs/development.md) | Running, testing, adding a provider or a tool. |
 | [**Terminal guide**](docs/guide.md) | The vault workflow with pi, Claude Code or Codex. |
-| [**FAQ**](docs/faq.md) | Including "why not just ask ChatGPT?" |
 
-## Credits
+## 🤝 Contributing
 
-The teaching method — probe, plan, teach; unconditional truths first; "how could
-I have discovered this myself?" — comes from Amos Blomqvist's
+Contributions are welcome — and the most useful one is telling me **where a
+lesson went wrong for you**. Open a
+[session report](https://github.com/NouhKhouyi/aula/issues/new?template=session-report.yml),
+or read [CONTRIBUTING.md](CONTRIBUTING.md) to send code.
+
+## 🙏 Credits
+
+The teaching method — probe, plan, teach; unconditional truths first; "how
+could I have discovered this myself?" — comes from Amos Blomqvist's
 [`learn`](https://github.com/amosblomqvist/learn), and the app's shape is
 inspired by his [LearnHarness](https://github.com/amosblomqvist/learnharness).
-aula is an independent implementation; no code is shared. Lessons render in
-[Obsidian](https://obsidian.md), math with [KaTeX](https://katex.org) and
-diagrams with [Mermaid](https://mermaid.js.org).
+aula is an independent implementation; no code is shared.
 
-## License
-
-[MIT](LICENSE).
+<p align="center"><sub>MIT licensed · made by
+<a href="https://github.com/NouhKhouyi">Nouh Khouyi</a></sub></p>

@@ -40,6 +40,7 @@ export function AskCard({
             <TextArea
               rows={3}
               autoFocus
+              className="scroll-mb-40"
               value={text}
               onChange={(e) => setText(e.target.value)}
               onKeyDown={(e) => submitOnModEnter(e, submit)}
@@ -100,6 +101,7 @@ export function PlanCard({
             <TextArea
               rows={3}
               autoFocus
+              className="scroll-mb-40"
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
               placeholder="What should change? A foundation that isn't obvious, a different goal, something you already know…"
@@ -170,6 +172,7 @@ export function ProblemCard({
             <TextArea
               rows={5}
               autoFocus
+              className="scroll-mb-40"
               value={attempt}
               onChange={(e) => setAttempt(e.target.value)}
               onKeyDown={(e) => submitOnModEnter(e, submit)}
