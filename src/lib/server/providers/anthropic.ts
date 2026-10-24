@@ -131,8 +131,13 @@ export function anthropicProvider(opts: {
   model: string;
   effort: Effort;
   webSearch: boolean;
+  /** Injected in tests to stand in for the network. */
+  fetch?: typeof fetch;
 }): Provider {
-  const client = new Anthropic(opts.apiKey ? { apiKey: opts.apiKey } : {});
+  const client = new Anthropic({
+    ...(opts.apiKey ? { apiKey: opts.apiKey } : {}),
+    ...(opts.fetch ? { fetch: opts.fetch, maxRetries: 0 } : {}),
+  });
   const legacy = isLegacy(opts.model);
   const fallback = FALLBACK_MODELS.has(opts.model);
 
