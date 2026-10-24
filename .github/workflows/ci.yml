@@ -18,7 +18,7 @@ jobs:
     name: App — lint, typecheck, test, build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
@@ -39,7 +39,7 @@ jobs:
     name: Lint markdown
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - uses: actions/setup-node@v5
         with:
           node-version: '22'
@@ -50,7 +50,7 @@ jobs:
     name: Check links
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Assemble the website, so its asset links can be checked
         run: node scripts/build-site.mjs
       - name: lychee
@@ -63,7 +63,7 @@ jobs:
     name: Lint shell scripts
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: shellcheck
         run: shellcheck scripts/*.sh
 
@@ -71,7 +71,7 @@ jobs:
     name: Lint PowerShell
     runs-on: windows-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: PSScriptAnalyzer
         shell: pwsh
         run: |
@@ -85,7 +85,7 @@ jobs:
     name: No personal content committed
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v7
       - name: Lessons/, Material/ and viz/ must stay empty
         run: |
           set -euo pipefail
