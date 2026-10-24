@@ -28,6 +28,8 @@ body:
     attributes:
       label: Which agent?
       options:
+        - The aula app (Claude)
+        - The aula app (OpenAI-compatible)
         - pi
         - Claude Code
         - Codex
