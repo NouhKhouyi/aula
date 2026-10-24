@@ -237,9 +237,7 @@ or read [CONTRIBUTING.md](CONTRIBUTING.md) to send code.
 
 The teaching method — probe, plan, teach; unconditional truths first; "how
 could I have discovered this myself?" — comes from Amos Blomqvist's
-[`learn`](https://github.com/amosblomqvist/learn), and the app's shape is
-inspired by his [LearnHarness](https://github.com/amosblomqvist/learnharness).
-aula is an independent implementation; no code is shared.
+[`learn`](https://github.com/amosblomqvist/learn). aula is an independent implementation; no code is shared.
 
 <p align="center"><sub>MIT licensed · made by
 <a href="https://github.com/NouhKhouyi">Nouh Khouyi</a></sub></p>
