@@ -110,9 +110,7 @@ export function planToMermaid(plan: Pick<Plan, "nodes" | "edges" | "goal">): str
   const lines = ["flowchart BT"];
   for (const n of plan.nodes) {
     const text = label(n.label);
-    lines.push(
-      n.id === plan.goal ? `    ${safe(n.id)}(["${text}"])` : `    ${safe(n.id)}["${text}"]`,
-    );
+    lines.push(n.id === plan.goal ? `    ${safe(n.id)}(["${text}"])` : `    ${safe(n.id)}["${text}"]`);
   }
   for (const e of plan.edges) lines.push(`    ${safe(e.from)} --> ${safe(e.to)}`);
   lines.push(`    style ${safe(plan.goal)} fill:#7C3AED,color:#fff`);

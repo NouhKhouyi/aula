@@ -1,11 +1,5 @@
 import { TOOLS, isToolName } from "./tools";
-import type {
-  Message,
-  Session,
-  SessionSummary,
-  ToolCallBlock,
-  ToolResult,
-} from "./types";
+import type { Message, Session, SessionSummary, ToolCallBlock, ToolResult } from "./types";
 
 /** Every tool result in the session, by call id. */
 export function resultsById(messages: Message[]): Map<string, ToolResult> {
@@ -37,8 +31,7 @@ export function pendingCalls(messages: Message[]): ToolCallBlock[] {
 function interactiveCalls(m: Message): ToolCallBlock[] {
   if (m.role !== "assistant") return [];
   return m.blocks.filter(
-    (b): b is ToolCallBlock =>
-      b.type === "tool_call" && isToolName(b.name) && TOOLS[b.name].interactive,
+    (b): b is ToolCallBlock => b.type === "tool_call" && isToolName(b.name) && TOOLS[b.name].interactive,
   );
 }
 
@@ -101,9 +94,13 @@ export function transcriptText(session: Session): string {
         out.push(`QUESTION: ${d.question}\nLEARNER: ${d.text}`);
       } else if (d?.kind === "plan") {
         const input = b.input as { approach?: string };
-        out.push(`PLAN: ${input.approach ?? ""}\nLEARNER ${d.approved ? "approved" : `asked for changes: ${d.feedback ?? ""}`}`);
+        out.push(
+          `PLAN: ${input.approach ?? ""}\nLEARNER ${d.approved ? "approved" : `asked for changes: ${d.feedback ?? ""}`}`,
+        );
       } else if (d?.kind === "problem") {
-        out.push(`PROBLEM: ${d.statement}\nLEARNER ATTEMPT${d.confidence !== undefined ? ` (confidence ${d.confidence}%)` : ""}: ${d.gaveUp ? "(gave up)" : d.attempt}`);
+        out.push(
+          `PROBLEM: ${d.statement}\nLEARNER ATTEMPT${d.confidence !== undefined ? ` (confidence ${d.confidence}%)` : ""}: ${d.gaveUp ? "(gave up)" : d.attempt}`,
+        );
       }
     }
   }

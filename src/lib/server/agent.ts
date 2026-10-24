@@ -163,5 +163,8 @@ export async function runTurn(session: Session, input: TurnInput, deps: TurnDeps
     await deps.persist(session);
     if (waiting.length > 0) return;
   }
-  deps.emit({ type: "notice", message: "The teacher took many steps without pausing; stopped here. Send a message to continue." });
+  deps.emit({
+    type: "notice",
+    message: "The teacher took many steps without pausing; stopped here. Send a message to continue.",
+  });
 }

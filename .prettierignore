@@ -1,0 +1,11 @@
+.next/
+.aula/
+node_modules/
+package-lock.json
+Lessons/
+Material/
+*.md
+.obsidian/
+.github/ISSUE_TEMPLATE/
+*.jsonc
+*.yml

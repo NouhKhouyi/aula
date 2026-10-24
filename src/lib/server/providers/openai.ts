@@ -37,9 +37,7 @@ export function toOpenAIMessages(system: string, messages: Message[]): ChatMessa
         .filter((b): b is Extract<AssistantBlock, { type: "text" }> => b.type === "text")
         .map((b) => b.text)
         .join("");
-      const calls = m.blocks.filter(
-        (b): b is Extract<AssistantBlock, { type: "tool_call" }> => b.type === "tool_call",
-      );
+      const calls = m.blocks.filter((b): b is Extract<AssistantBlock, { type: "tool_call" }> => b.type === "tool_call");
       out.push({
         role: "assistant",
         content: text || null,

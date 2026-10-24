@@ -33,8 +33,13 @@ describe("provider message conversion", () => {
   });
 
   it("replays raw Anthropic content verbatim", () => {
-    const raw = [{ type: "thinking", thinking: "", signature: "sig" }, { type: "text", text: "Hi" }];
-    const out = toAnthropicMessages([{ id: "a", role: "assistant", ts: 0, blocks: [], raw: { provider: "anthropic", content: raw } }]);
+    const raw = [
+      { type: "thinking", thinking: "", signature: "sig" },
+      { type: "text", text: "Hi" },
+    ];
+    const out = toAnthropicMessages([
+      { id: "a", role: "assistant", ts: 0, blocks: [], raw: { provider: "anthropic", content: raw } },
+    ]);
     expect(out[0].content).toBe(raw);
   });
 
@@ -55,7 +60,15 @@ describe("provider message conversion", () => {
       {
         type: "web_search_tool_result",
         tool_use_id: "srv_1",
-        content: [{ type: "web_search_result", title: "Essay", url: "https://example.org", encrypted_content: "", page_age: null }],
+        content: [
+          {
+            type: "web_search_result",
+            title: "Essay",
+            url: "https://example.org",
+            encrypted_content: "",
+            page_age: null,
+          },
+        ],
       },
       { type: "text", text: "Bayes's essay ", citations: null },
       { type: "text", text: "was published in 1763.", citations: null },
@@ -82,7 +95,12 @@ describe("tools", () => {
     const session = { kind: "teach", progress: { done: [] } } as unknown as Session;
     const { results, waiting } = runImmediateTools(session, [
       { type: "tool_call", id: "c1", name: "quiz", input: { question: "q" } },
-      { type: "tool_call", id: "c2", name: "propose_plan", input: { approach: "a", goal: "x", nodes: [{ id: "y", label: "Y", foundation: true }], edges: [] } },
+      {
+        type: "tool_call",
+        id: "c2",
+        name: "propose_plan",
+        input: { approach: "a", goal: "x", nodes: [{ id: "y", label: "Y", foundation: true }], edges: [] },
+      },
       { type: "tool_call", id: "c3", name: "nope", input: {} },
       { type: "tool_call", id: "c4", name: "set_progress", input: { done: [] } },
     ]);
@@ -94,7 +112,11 @@ describe("tools", () => {
   it("applies an approved plan to the session", () => {
     const session = { kind: "teach", phase: "probe", progress: { done: ["old"] } } as unknown as Session;
     const input = { approach: "a", goal: "g", nodes: [{ id: "g", label: "G", foundation: true }], edges: [] };
-    applyResponse(session, { type: "tool_call", id: "c", name: "propose_plan", input }, { callId: "c", kind: "plan", approved: true });
+    applyResponse(
+      session,
+      { type: "tool_call", id: "c", name: "propose_plan", input },
+      { callId: "c", kind: "plan", approved: true },
+    );
     expect(session.phase).toBe("teach");
     expect(session.plan?.revision).toBe(1);
     expect(session.progress).toEqual({ done: [] });

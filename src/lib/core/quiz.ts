@@ -73,17 +73,13 @@ export function gradeQuiz(
   const shown = displayQuiz(input, callId);
   if (
     chosenIndex !== null &&
-    (!Number.isInteger(chosenIndex) ||
-      chosenIndex < 0 ||
-      chosenIndex >= shown.options.length)
+    (!Number.isInteger(chosenIndex) || chosenIndex < 0 || chosenIndex >= shown.options.length)
   ) {
     throw new Error(`Option ${chosenIndex} does not exist.`);
   }
   const dontKnow = chosenIndex === null;
   const confidence =
-    dontKnow || extra.confidence === undefined
-      ? undefined
-      : Math.max(0, Math.min(100, Math.round(extra.confidence)));
+    dontKnow || extra.confidence === undefined ? undefined : Math.max(0, Math.min(100, Math.round(extra.confidence)));
   return {
     kind: "quiz",
     role: input.role,

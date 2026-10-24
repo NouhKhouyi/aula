@@ -17,9 +17,7 @@ describe("seededShuffle", () => {
   });
 
   it("puts the correct option in different positions across calls", () => {
-    const positions = new Set(
-      Array.from({ length: 40 }, (_, i) => displayQuiz(quiz, `call_${i}`).correctIndex),
-    );
+    const positions = new Set(Array.from({ length: 40 }, (_, i) => displayQuiz(quiz, `call_${i}`).correctIndex));
     expect(positions.size).toBeGreaterThan(2);
   });
 });

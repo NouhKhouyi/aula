@@ -19,18 +19,11 @@ import {
  */
 
 /** Models that reroute a declined request themselves (`fallbacks: "default"`). */
-const FALLBACK_MODELS = new Set([
-  "claude-fable-5-1",
-  "claude-opus-5-5",
-  "claude-opus-5",
-  "claude-sonnet-5-5",
-]);
+const FALLBACK_MODELS = new Set(["claude-fable-5-1", "claude-opus-5-5", "claude-opus-5", "claude-sonnet-5-5"]);
 
 /** Older models that predate adaptive thinking and effort. */
 function isLegacy(model: string): boolean {
-  return /claude-(3|haiku-4-5|sonnet-4-5|sonnet-4-0|opus-4-5|opus-4-1|opus-4-0|sonnet-4-2025|opus-4-2025)/.test(
-    model,
-  );
+  return /claude-(3|haiku-4-5|sonnet-4-5|sonnet-4-0|opus-4-5|opus-4-1|opus-4-0|sonnet-4-2025|opus-4-2025)/.test(model);
 }
 
 /** Older models only have the basic web search tool. */
@@ -198,7 +191,10 @@ export function anthropicProvider(opts: {
           });
           const message = await stream.finalMessage();
           content = hop === 0 ? message.content : [...content, ...message.content];
-          inputTokens += message.usage.input_tokens + (message.usage.cache_read_input_tokens ?? 0) + (message.usage.cache_creation_input_tokens ?? 0);
+          inputTokens +=
+            message.usage.input_tokens +
+            (message.usage.cache_read_input_tokens ?? 0) +
+            (message.usage.cache_creation_input_tokens ?? 0);
           outputTokens += message.usage.output_tokens;
           if (message.stop_reason !== "pause_turn") {
             req.onActivity?.(null);

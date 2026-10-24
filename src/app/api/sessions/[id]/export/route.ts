@@ -34,9 +34,10 @@ export function POST(_req: Request, ctx: RouteContext<"/api/sessions/[id]/export
       await fs.mkdir(dir, { recursive: true });
 
       // Re-exports overwrite the note this session wrote before, never another one.
-      const preferred = session.exportedTo && path.dirname(session.exportedTo) === dir
-        ? session.exportedTo
-        : path.join(dir, `${slugTitle(session.title)}.md`);
+      const preferred =
+        session.exportedTo && path.dirname(session.exportedTo) === dir
+          ? session.exportedTo
+          : path.join(dir, `${slugTitle(session.title)}.md`);
       let file = preferred;
       for (let n = 2; file !== session.exportedTo; n++) {
         try {
@@ -50,7 +51,8 @@ export function POST(_req: Request, ctx: RouteContext<"/api/sessions/[id]/export
       await fs.writeFile(file, sessionToMarkdown(session), "utf8");
       session.exportedTo = file;
       await saveSession(session);
-      return Response.json({ path: path.relative(process.cwd(), file) || file });
+      const relative = path.relative(process.cwd(), file);
+      return Response.json({ path: relative && !relative.startsWith("..") ? relative : file });
     });
   });
 }

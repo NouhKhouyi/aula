@@ -1,12 +1,6 @@
 import { validatePlan } from "./plan";
 import { gradeQuiz, quizResultForModel } from "./quiz";
-import {
-  TOOLS,
-  isToolName,
-  type PlanToolInput,
-  type ProblemInput,
-  type QuizInput,
-} from "./tools";
+import { TOOLS, isToolName, type PlanToolInput, type ProblemInput, type QuizInput } from "./tools";
 import type { LearnerResponse, Session, ToolCallBlock, ToolResult } from "./types";
 
 /**
@@ -42,7 +36,9 @@ export function runImmediateTools(
     if (call.name === "propose_plan") {
       const problems = validatePlan(parsed.data as PlanToolInput);
       if (problems.length) {
-        results.push(error(call, `The plan was not shown to the learner:\n- ${problems.join("\n- ")}\nFix it and propose again.`));
+        results.push(
+          error(call, `The plan was not shown to the learner:\n- ${problems.join("\n- ")}\nFix it and propose again.`),
+        );
         continue;
       }
     }
@@ -79,11 +75,7 @@ function error(call: ToolCallBlock, output: string): ToolResult {
 }
 
 /** Turns the learner's answer to a pending call into the tool result. */
-export function applyResponse(
-  session: Session,
-  call: ToolCallBlock,
-  response: LearnerResponse,
-): ToolResult {
+export function applyResponse(session: Session, call: ToolCallBlock, response: LearnerResponse): ToolResult {
   if (call.name !== kindToTool[response.kind]) {
     throw new Error(`Call ${call.id} is a ${call.name}, not a ${response.kind}.`);
   }

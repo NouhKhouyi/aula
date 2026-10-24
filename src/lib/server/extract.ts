@@ -22,12 +22,7 @@ export const extractionSchema = z.object({
 });
 
 /** Reads a session and folds what it established into the knowledge graph. */
-export async function extractSession(
-  session: Session,
-  graph: Graph,
-  provider: Provider,
-  signal?: AbortSignal,
-) {
+export async function extractSession(session: Session, graph: Graph, provider: Provider, signal?: AbortSignal) {
   const transcript = transcriptText(session);
   if (!transcript.trim()) throw new Error("This session has nothing to extract yet.");
   const { value, usage } = await provider.json({

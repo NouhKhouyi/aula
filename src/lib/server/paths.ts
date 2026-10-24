@@ -6,7 +6,8 @@ import path from "node:path";
  * AULA_DATA_DIR to keep the record anywhere else.
  */
 export function dataDir(): string {
-  return path.resolve(process.env.AULA_DATA_DIR ?? path.join(process.cwd(), ".aula"));
+  // Runtime paths chosen by the user: nothing here should be traced into a build.
+  return path.resolve(/*turbopackIgnore: true*/ process.env.AULA_DATA_DIR ?? path.join(process.cwd(), ".aula"));
 }
 
 export const paths = {
@@ -19,5 +20,5 @@ export const paths = {
 
 /** Resolves the vault folder exports land in; relative paths are repo-relative. */
 export function vaultDir(configured: string): string {
-  return path.resolve(process.cwd(), configured);
+  return path.resolve(/*turbopackIgnore: true*/ process.cwd(), configured);
 }

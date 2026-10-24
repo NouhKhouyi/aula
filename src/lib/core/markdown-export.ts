@@ -11,7 +11,10 @@ import type { Session } from "./types";
  */
 
 function callout(kind: string, title: string, body: string): string {
-  const lines = body.trim().split("\n").map((l) => (l ? `> ${l}` : ">"));
+  const lines = body
+    .trim()
+    .split("\n")
+    .map((l) => (l ? `> ${l}` : ">"));
   return [`> [!${kind}] ${title}`, ...lines].join("\n");
 }
 
@@ -65,12 +68,7 @@ export function sessionToMarkdown(session: Session): string {
           d.confidence !== undefined ? `Confidence: ${d.confidence}%` : "",
           d.thinking ? `*My thinking:* ${d.thinking}` : "",
         ].filter(Boolean);
-        const body = [
-          `Correct answer: **${d.correctIndex + 1}**`,
-          ...meta,
-          "",
-          d.explanation,
-        ].join("\n");
+        const body = [`Correct answer: **${d.correctIndex + 1}**`, ...meta, "", d.explanation].join("\n");
         if (d.dontKnow) parts.push(callout("question", "Quiz — I don't know", body));
         else if (d.correct) parts.push(callout("success", "Quiz — correct ✓", body));
         else parts.push(callout("failure", `Quiz — incorrect ✗ (chose ${d.chosenIndex! + 1})`, body));
@@ -84,9 +82,7 @@ export function sessionToMarkdown(session: Session): string {
         parts.push(callout("tip", "Plan", body));
         const d = r?.details;
         if (d?.kind === "plan") {
-          parts.push(
-            callout("quote", "YOU", d.approved ? "Approved." : `Changes requested: ${d.feedback ?? ""}`),
-          );
+          parts.push(callout("quote", "YOU", d.approved ? "Approved." : `Changes requested: ${d.feedback ?? ""}`));
           if (d.approved && !dividerShown) {
             parts.push("---\n\n## Teaching");
             dividerShown = true;

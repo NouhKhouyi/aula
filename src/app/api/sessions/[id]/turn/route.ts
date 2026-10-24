@@ -14,10 +14,7 @@ const turnSchema = z
   })
   .refine((b) => !!b.text?.trim() || (b.responses?.length ?? 0) > 0, "Send a message or an answer.");
 
-export type TurnStreamEvent =
-  | AgentEvent
-  | { type: "done"; session: unknown }
-  | { type: "error"; message: string };
+export type TurnStreamEvent = AgentEvent | { type: "done"; session: unknown } | { type: "error"; message: string };
 
 /**
  * Runs one turn and streams it as newline-delimited JSON. The session is
@@ -54,7 +51,11 @@ export function POST(request: Request, ctx: RouteContext<"/api/sessions/[id]/tur
               signal: request.signal,
               persist: saveSession,
               emit: (event) =>
-                send(event.type === "message" ? { ...event, message: forClient({ messages: [event.message] }).messages[0] } : event),
+                send(
+                  event.type === "message"
+                    ? { ...event, message: forClient({ messages: [event.message] }).messages[0] }
+                    : event,
+                ),
             });
           } finally {
             await saveSession(session);

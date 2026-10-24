@@ -31,9 +31,7 @@ export function normalize(text: string): string {
 function findExisting(graph: Graph, p: ExtractedProposition): Proposition | undefined {
   const statement = normalize(p.statement);
   return graph.propositions.find(
-    (q) =>
-      normalize(q.statement) === statement ||
-      q.aliases.some((a) => normalize(a) === statement),
+    (q) => normalize(q.statement) === statement || q.aliases.some((a) => normalize(a) === statement),
   );
 }
 
@@ -96,9 +94,7 @@ export function mergeExtraction(
     if (!conclusion || premises.length === 0 || premises.some((p) => !p)) continue;
     const ids = [...new Set(premises as string[])].sort();
     if (ids.includes(conclusion)) continue;
-    const existing = next.chains.find(
-      (x) => x.conclusion === conclusion && x.premises.join() === ids.join(),
-    );
+    const existing = next.chains.find((x) => x.conclusion === conclusion && x.premises.join() === ids.join());
     if (existing) {
       if (!existing.sources.some((s) => s.sessionId === sessionId)) {
         existing.sources = [...existing.sources, { sessionId, at }];

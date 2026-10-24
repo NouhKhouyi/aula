@@ -116,12 +116,7 @@ export interface ProgressDetails {
   done: string[];
 }
 
-export type ToolDetails =
-  | QuizAnswer
-  | AskAnswer
-  | PlanAnswer
-  | ProblemAnswer
-  | ProgressDetails;
+export type ToolDetails = QuizAnswer | AskAnswer | PlanAnswer | ProblemAnswer | ProgressDetails;
 
 export type QuizRole = "probe" | "predict" | "check";
 
@@ -195,19 +190,14 @@ export interface Session {
   exportedTo?: string;
 }
 
-export type SessionSummary = Pick<
-  Session,
-  "id" | "title" | "kind" | "createdAt" | "updatedAt" | "phase" | "model"
-> & { answered: number; correct: number };
+export type SessionSummary = Pick<Session, "id" | "title" | "kind" | "createdAt" | "updatedAt" | "phase" | "model"> & {
+  answered: number;
+  correct: number;
+};
 
 // ── knowledge graph ─────────────────────────────────────────────────────────
 
-export type Understanding =
-  | "solid"
-  | "shaky"
-  | "accepted"
-  | "resisted"
-  | "not yet engaged";
+export type Understanding = "solid" | "shaky" | "accepted" | "resisted" | "not yet engaged";
 
 export interface Proposition {
   id: string;

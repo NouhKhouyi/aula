@@ -44,7 +44,9 @@ const TEACH: Step[] = [
     call("ask", { question: "What would you like to be able to do once this lesson is over?" }),
   ],
   () => [
-    text("Thanks. Now a few questions to find the edge of what you already hold. Missing some is the point — and *I don't know* is always welcome."),
+    text(
+      "Thanks. Now a few questions to find the edge of what you already hold. Missing some is the point — and *I don't know* is always welcome.",
+    ),
     call("quiz", {
       role: "probe",
       question: "A straight line passes through $(1, 2)$ and $(3, 6)$. What is its slope?",
@@ -60,7 +62,8 @@ const TEACH: Step[] = [
       question: "What is the average rate of change of $f(x) = x^2$ between $x=1$ and $x=3$?",
       correct: "$4$",
       distractors: ["$8$", "$2$", "$6$"],
-      explanation: "$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = 4$ — the slope of the straight line through the two points of the curve.",
+      explanation:
+        "$\\frac{f(3)-f(1)}{3-1} = \\frac{9-1}{2} = 4$ — the slope of the straight line through the two points of the curve.",
     }),
   ],
   () => [
@@ -70,7 +73,7 @@ const TEACH: Step[] = [
   () => [
     call("set_progress", { current: "secant", done: ["slope"] }),
     text(
-      "A curve has no single rise-over-run: its steepness keeps changing. But between any two points we *can* draw a straight line — a **secant** — and that line has a slope you already know how to compute.\n\nFor $f(x)=x^2$, between $x$ and $x+h$:\n\n$$\\frac{(x+h)^2 - x^2}{h}$$\n\n```mermaid\nflowchart LR\n  A[\"two points on the curve\"] --> B[\"secant line\"] --> C[\"rise / run\"]\n```\n\nBefore I simplify it — predict.",
+      'A curve has no single rise-over-run: its steepness keeps changing. But between any two points we *can* draw a straight line — a **secant** — and that line has a slope you already know how to compute.\n\nFor $f(x)=x^2$, between $x$ and $x+h$:\n\n$$\\frac{(x+h)^2 - x^2}{h}$$\n\n```mermaid\nflowchart LR\n  A["two points on the curve"] --> B["secant line"] --> C["rise / run"]\n```\n\nBefore I simplify it — predict.',
     ),
     call("quiz", {
       role: "predict",
@@ -103,17 +106,18 @@ const TEACH: Step[] = [
 
 const PRACTICE: Step[] = [
   () => [
-    text("**Demo mode.** A scripted practice round. Connect a provider in **Settings** for real practice drawn from your graph."),
+    text(
+      "**Demo mode.** A scripted practice round. Connect a provider in **Settings** for real practice drawn from your graph.",
+    ),
     call("pose_problem", {
-      statement:
-        "A ball's height is $h(t) = t^2$ metres after $t$ seconds. How fast is it rising at exactly $t = 4$?",
+      statement: "A ball's height is $h(t) = t^2$ metres after $t$ seconds. How fast is it rising at exactly $t = 4$?",
       targets: ["d/dx x² = 2x"],
       modelSolution: "The rate is the derivative: $h'(t) = 2t$, so $h'(4) = 8$ m/s.",
     }),
   ],
   () => [
     text(
-      "Here is the clean solution. \"How fast at an instant\" is the slope at a point, and for $t^2$ that slope is $2t$. So at $t=4$ the ball rises at $8$ m/s. The idea the problem never named was the derivative — noticing that it was needed is exactly the skill practice builds.",
+      'Here is the clean solution. "How fast at an instant" is the slope at a point, and for $t^2$ that slope is $2t$. So at $t=4$ the ball rises at $8$ m/s. The idea the problem never named was the derivative — noticing that it was needed is exactly the skill practice builds.',
     ),
   ],
 ];
@@ -150,9 +154,7 @@ export function mockProvider({ delayMs = 12 }: { delayMs?: number } = {}): Provi
       const last = req.messages.at(-1);
       const answered = answeredInteractive(req.messages);
       const planVerdicts = req.messages.flatMap((m) =>
-        m.role === "tool"
-          ? m.results.flatMap((r) => (r.details?.kind === "plan" ? [r.details.approved] : []))
-          : [],
+        m.role === "tool" ? m.results.flatMap((r) => (r.details?.kind === "plan" ? [r.details.approved] : [])) : [],
       );
       const rejections = planVerdicts.filter((v) => !v).length;
 
@@ -161,7 +163,11 @@ export function mockProvider({ delayMs = 12 }: { delayMs?: number } = {}): Provi
         // set_progress was answered by the server; the scripted step already spoke.
         blocks = [];
       } else if (last?.role === "user" && req.messages.length > 1) {
-        blocks = [text("In demo mode I can only follow the script — connect a model in **Settings** to ask anything. Answer the open question above to continue.")];
+        blocks = [
+          text(
+            "In demo mode I can only follow the script — connect a model in **Settings** to ask anything. Answer the open question above to continue.",
+          ),
+        ];
       } else if (planVerdicts.at(-1) === false && last?.role === "tool") {
         blocks = [text("In demo mode the plan is fixed, so here it is again."), call("propose_plan", PLAN)];
       } else {
@@ -181,9 +187,22 @@ export function mockProvider({ delayMs = 12 }: { delayMs?: number } = {}): Provi
     async json<T>(req: JsonRequest<T>) {
       const value = req.schema.parse({
         propositions: [
-          { name: "Slope", statement: "The slope of a straight line is its rise divided by its run.", understanding: "solid" },
-          { name: "Secant slope", statement: "The average rate of change of f between two points is the slope of the secant line through them.", understanding: "accepted" },
-          { name: "Derivative", statement: "The derivative of f at x is the limit of secant slopes as the interval shrinks to zero.", understanding: "accepted" },
+          {
+            name: "Slope",
+            statement: "The slope of a straight line is its rise divided by its run.",
+            understanding: "solid",
+          },
+          {
+            name: "Secant slope",
+            statement:
+              "The average rate of change of f between two points is the slope of the secant line through them.",
+            understanding: "accepted",
+          },
+          {
+            name: "Derivative",
+            statement: "The derivative of f at x is the limit of secant slopes as the interval shrinks to zero.",
+            understanding: "accepted",
+          },
           { name: "Derivative of x²", statement: "The derivative of x² is 2x.", understanding: "solid" },
         ],
         chains: [

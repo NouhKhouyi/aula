@@ -3,13 +3,7 @@ import path from "node:path";
 import { EMPTY_GRAPH } from "../core/graph";
 import { isSafeId } from "../core/ids";
 import { summarize } from "../core/transcript";
-import type {
-  Graph,
-  PublicSettings,
-  Session,
-  SessionSummary,
-  Settings,
-} from "../core/types";
+import type { Graph, PublicSettings, Session, SessionSummary, Settings } from "../core/types";
 import { paths } from "./paths";
 
 /**
@@ -123,9 +117,7 @@ export async function listSessions(): Promise<SessionSummary[]> {
     throw err;
   }
   const sessions = await Promise.all(
-    files
-      .filter((f) => f.endsWith(".json"))
-      .map((f) => getSession(f.slice(0, -5)).catch(() => undefined)),
+    files.filter((f) => f.endsWith(".json")).map((f) => getSession(f.slice(0, -5)).catch(() => undefined)),
   );
   return sessions
     .filter((s): s is Session => !!s)

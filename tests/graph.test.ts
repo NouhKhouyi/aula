@@ -22,7 +22,9 @@ describe("mergeExtraction", () => {
   it("merges identical statements across sessions instead of duplicating", () => {
     const first = mergeExtraction(EMPTY_GRAPH, extraction, "s_1", "t1").graph;
     const again = {
-      propositions: [{ name: "Gradient", statement: "the slope of a line is RISE over run", understanding: "solid" as const }],
+      propositions: [
+        { name: "Gradient", statement: "the slope of a line is RISE over run", understanding: "solid" as const },
+      ],
       chains: [],
     };
     const { graph, added, updated } = mergeExtraction(first, again, "s_2", "t2");
@@ -42,7 +44,13 @@ describe("mergeExtraction", () => {
   it("drops chains that reference unknown or circular propositions", () => {
     const { chains } = mergeExtraction(
       EMPTY_GRAPH,
-      { ...extraction, chains: [{ premises: ["Nope"], conclusion: "Slope" }, { premises: ["Slope"], conclusion: "Slope" }] },
+      {
+        ...extraction,
+        chains: [
+          { premises: ["Nope"], conclusion: "Slope" },
+          { premises: ["Slope"], conclusion: "Slope" },
+        ],
+      },
       "s",
       "t",
     );
@@ -53,7 +61,9 @@ describe("mergeExtraction", () => {
 describe("relevantPropositions", () => {
   it("ranks by term overlap", () => {
     const { graph } = mergeExtraction(EMPTY_GRAPH, extraction, "s", "t");
-    expect(relevantPropositions(graph, "I want to understand derivatives and secant slopes")[0].name).toBe("Derivative");
+    expect(relevantPropositions(graph, "I want to understand derivatives and secant slopes")[0].name).toBe(
+      "Derivative",
+    );
     expect(relevantPropositions(graph, "Roman law")).toEqual([]);
   });
 

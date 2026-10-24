@@ -14,9 +14,7 @@ export interface ToolSpec<S extends z.ZodType = z.ZodType> {
   modes: SessionKind[];
 }
 
-const id = z
-  .string()
-  .regex(/^[A-Za-z0-9_-]{1,40}$/, "ids are short slugs: letters, digits, _ or -");
+const id = z.string().regex(/^[A-Za-z0-9_-]{1,40}$/, "ids are short slugs: letters, digits, _ or -");
 
 export const quizSchema = z.object({
   role: z
@@ -25,10 +23,7 @@ export const quizSchema = z.object({
       "probe: locate the edge of understanding (before the plan). predict: ask the learner to predict before you explain. check: verify the step you just taught landed.",
     ),
   question: z.string().min(1).describe("The question. LaTeX for any math."),
-  correct: z
-    .string()
-    .min(1)
-    .describe("The correct option, as a bare assertion with no justification."),
+  correct: z.string().min(1).describe("The correct option, as a bare assertion with no justification."),
   distractors: z
     .array(z.string().min(1))
     .min(2)
@@ -36,33 +31,22 @@ export const quizSchema = z.object({
     .describe(
       "Wrong options, each mutated from the correct one: same skeleton, grain and register. Each must be a real mistake a learner could make, and unambiguously false.",
     ),
-  explanation: z
-    .string()
-    .min(1)
-    .describe("Why the correct answer is correct. Shown only after the learner answers."),
+  explanation: z.string().min(1).describe("Why the correct answer is correct. Shown only after the learner answers."),
 });
 
 export const askSchema = z.object({
-  question: z
-    .string()
-    .min(1)
-    .describe("An open question with no correct answer: goals, preferences, direction."),
+  question: z.string().min(1).describe("An open question with no correct answer: goals, preferences, direction."),
 });
 
 export const planSchema = z.object({
-  approach: z
-    .string()
-    .min(1)
-    .describe("What is covered, in what order, and why that order. Markdown."),
+  approach: z.string().min(1).describe("What is covered, in what order, and why that order. Markdown."),
   goal: id.describe("Id of the node that is the learner's goal."),
   nodes: z
     .array(
       z.object({
         id,
         label: z.string().min(1).max(90).describe("A short statement of the node."),
-        foundation: z
-          .boolean()
-          .describe("True for unconditional truths accepted as-is (the roots)."),
+        foundation: z.boolean().describe("True for unconditional truths accepted as-is (the roots)."),
       }),
     )
     .min(1)
@@ -78,13 +62,8 @@ export const progressSchema = z.object({
 });
 
 export const problemSchema = z.object({
-  statement: z
-    .string()
-    .min(1)
-    .describe("The problem. It must not name the idea needed to solve it."),
-  targets: z
-    .array(z.string())
-    .describe("Names of the propositions the problem exercises."),
+  statement: z.string().min(1).describe("The problem. It must not name the idea needed to solve it."),
+  targets: z.array(z.string()).describe("Names of the propositions the problem exercises."),
   modelSolution: z
     .string()
     .min(1)

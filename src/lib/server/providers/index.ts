@@ -3,7 +3,7 @@ import { getSecrets } from "../store";
 import { anthropicProvider } from "./anthropic";
 import { mockProvider } from "./mock";
 import { openaiProvider } from "./openai";
-import type { Provider } from "./types";
+import { ProviderError, type Provider } from "./types";
 
 export async function providerFor(
   settings: Settings,
@@ -12,6 +12,12 @@ export async function providerFor(
   const secrets = await getSecrets();
   switch (provider) {
     case "anthropic":
+      if (!secrets.anthropic && !process.env.ANTHROPIC_AUTH_TOKEN) {
+        throw new ProviderError(
+          "Add your Anthropic API key in Settings — or switch to demo mode to try aula without one.",
+          401,
+        );
+      }
       return anthropicProvider({
         apiKey: secrets.anthropic,
         model: settings.anthropic.model,
@@ -29,5 +35,5 @@ export async function providerFor(
   }
 }
 
-export { ProviderError } from "./types";
-export type { Provider } from "./types";
+export { ProviderError };
+export type { Provider };
