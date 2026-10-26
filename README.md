@@ -187,7 +187,7 @@ and [agents](docs/agents.md).
 </details>
 
 <details>
-<summary><b>🛠️ For developers</b></summary>
+<summary><b>For developers</b></summary>
 
 ```bash
 npm run dev          # http://localhost:3000, with hot reload
