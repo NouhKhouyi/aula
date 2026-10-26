@@ -44,7 +44,7 @@
   learn step by step.</sub>
 </p>
 
-## 💡 Why aula?
+## Why aula?
 
 Ask a chatbot to explain something and you get an explanation written for
 nobody in particular. aula works the other way round.
@@ -58,17 +58,17 @@ nobody in particular. aula works the other way round.
 | **Next week** | Starts from zero | **Remembers** — a knowledge graph across sessions |
 | **Your notes** | Lost in the chat | **Saved to Obsidian** with real math and diagrams |
 
-## 🧭 How a lesson works
+## How a lesson works
 
 ```mermaid
 flowchart LR
-    Q(["You ask"]) --> P["🔍 Probe<br/>find where your<br/>understanding ends"]
-    P --> L["🗺️ Plan<br/>the shortest route,<br/>you approve it"]
-    L --> T["🧱 Teach<br/>predict → explain → check"]
+    Q(["You ask"]) --> P["Probe<br/>find where your<br/>understanding ends"]
+    P --> L["Plan<br/>the shortest route,<br/>you approve it"]
+    L --> T["Teach<br/>predict → explain → check"]
     T -- "a step didn't land" --> T
-    T --> G(["✨ It feels obvious"])
-    G -.-> R["🎯 Practise<br/>days later"]
-    G -.-> K[("🕸️ Knowledge graph")]
+    T --> G(["It feels obvious"])
+    G -.-> R["Practise<br/>days later"]
+    G -.-> K[("Knowledge graph")]
     K -.-> P
 ```
 
@@ -88,7 +88,7 @@ flowchart LR
 > reasoning. A confident wrong answer tells the teacher far more than a lucky
 > right one.
 
-## 📸 A look around
+## A look around
 
 <table>
   <tr>
@@ -114,7 +114,7 @@ flowchart LR
   </tr>
 </table>
 
-## 🚀 Try it in a minute
+## Try it in a minute
 
 You need [Node.js](https://nodejs.org) 20.9 or newer.
 
@@ -129,9 +129,9 @@ Open <http://localhost:3000>, go to **Settings**, and pick a teacher:
 
 | Option | You need | Good for |
 |---|---|---|
-| 🎓 **Claude** *(recommended)* | An [Anthropic API key](https://console.anthropic.com) | The best lessons, with facts checked on the web |
-| 🔌 **OpenAI-compatible** | A key and a model id — or nothing, for a local model | OpenAI, OpenRouter, DeepSeek, Ollama, LM Studio |
-| 🧪 **Demo** | Nothing | Seeing the whole loop in two minutes, for free |
+| **Claude** *(recommended)* | An [Anthropic API key](https://console.anthropic.com) | The best lessons, with facts checked on the web |
+| **OpenAI-compatible** | A key and a model id — or nothing, for a local model | OpenAI, OpenRouter, DeepSeek, Ollama, LM Studio |
+| **Demo** | Nothing | Seeing the whole loop in two minutes, for free |
 
 Then ask it something you've always half-understood.
 
@@ -148,23 +148,23 @@ a scratch folder, without touching your own record.
 
 </details>
 
-## ✨ What's inside
+## What's inside
 
-- **🎯 Real quizzes** — shuffled options, *I don't know*, confidence and a
+- **Real quizzes** — shuffled options, *I don't know*, confidence and a
   thinking box; they show you the reasoning after you answer.
-- **🗺️ A live plan map** — foundations at the bottom, the goal on top, the
+- **A live plan map** — foundations at the bottom, the goal on top, the
   current step highlighted as you go.
-- **🕸️ A knowledge graph** — every session adds what it established; new
+- **A knowledge graph** — every session adds what it established; new
   lessons read it, so they don't start from scratch.
-- **📚 Your course material** — attach notes or a syllabus from `Material/` to
+- **Your course material** — attach notes or a syllabus from `Material/` to
   set the scope and notation.
-- **🔎 Fact-checking** — with Claude, the teacher verifies on the web anything
+- **Fact-checking** — with Claude, the teacher verifies on the web anything
   it's unsure of, and shows what it checked.
-- **📝 Obsidian export** — every lesson as a note with callouts, LaTeX and
+- **Obsidian export** — every lesson as a note with callouts, LaTeX and
   Mermaid diagrams.
-- **🌗 Light and dark**, keyboard shortcuts, and it works on a phone.
+- **Light and dark**, keyboard shortcuts, and it works on a phone.
 
-## 🔒 Yours, on your machine
+## Yours, on your machine
 
 - **No account, no subscription, no telemetry.** You pay your model provider
   directly; aula adds nothing.
@@ -175,7 +175,7 @@ a scratch folder, without touching your own record.
   change the teacher.
 
 <details>
-<summary><b>💻 Prefer studying in a terminal agent?</b></summary>
+<summary><b>Prefer studying in a terminal agent?</b></summary>
 
 aula started as an Obsidian vault for terminal agents, and that still works.
 [`AGENTS.md`](AGENTS.md) carries the whole method for Claude Code, Codex,
@@ -216,7 +216,7 @@ Read the [architecture](docs/architecture.md), the
 
 </details>
 
-## 📖 Docs
+## Docs
 
 | | |
 |---|---|
@@ -226,7 +226,7 @@ Read the [architecture](docs/architecture.md), the
 | [**Architecture**](docs/architecture.md) | The agent loop, providers, tools and data model. |
 | [**Terminal guide**](docs/guide.md) | The vault workflow with pi, Claude Code or Codex. |
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome — and the most useful one is telling me **where a
 lesson went wrong for you**. Open a
